@@ -13,6 +13,9 @@
 		586A0BC82956E30000D52C24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BC62956E30000D52C24 /* Main.storyboard */; };
 		586A0BCA2956E30100D52C24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BC92956E30100D52C24 /* Assets.xcassets */; };
 		586A0BCD2956E30100D52C24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BCB2956E30100D52C24 /* LaunchScreen.storyboard */; };
+		586A0BD52956E45400D52C24 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BD42956E45400D52C24 /* Roboto-Bold.ttf */; };
+		586A0BD72956E4A700D52C24 /* SF-Pro-Display-Bold.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BD62956E4A700D52C24 /* SF-Pro-Display-Bold.OTF */; };
+		586A0BD92956E4B700D52C24 /* SF-Pro-Display-Regular.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BD82956E4B700D52C24 /* SF-Pro-Display-Regular.OTF */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		586A0BC92956E30100D52C24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		586A0BCC2956E30100D52C24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		586A0BCE2956E30100D52C24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		586A0BD42956E45400D52C24 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		586A0BD62956E4A700D52C24 /* SF-Pro-Display-Bold.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.OTF"; sourceTree = "<group>"; };
+		586A0BD82956E4B700D52C24 /* SF-Pro-Display-Regular.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.OTF"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +69,19 @@
 				586A0BC92956E30100D52C24 /* Assets.xcassets */,
 				586A0BCB2956E30100D52C24 /* LaunchScreen.storyboard */,
 				586A0BCE2956E30100D52C24 /* Info.plist */,
+				586A0BDA2956E4EE00D52C24 /* Fonts */,
 			);
 			path = SlotsGames;
+			sourceTree = "<group>";
+		};
+		586A0BDA2956E4EE00D52C24 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				586A0BD42956E45400D52C24 /* Roboto-Bold.ttf */,
+				586A0BD62956E4A700D52C24 /* SF-Pro-Display-Bold.OTF */,
+				586A0BD82956E4B700D52C24 /* SF-Pro-Display-Regular.OTF */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +144,9 @@
 			files = (
 				586A0BCD2956E30100D52C24 /* LaunchScreen.storyboard in Resources */,
 				586A0BCA2956E30100D52C24 /* Assets.xcassets in Resources */,
+				586A0BD52956E45400D52C24 /* Roboto-Bold.ttf in Resources */,
+				586A0BD72956E4A700D52C24 /* SF-Pro-Display-Bold.OTF in Resources */,
+				586A0BD92956E4B700D52C24 /* SF-Pro-Display-Regular.OTF in Resources */,
 				586A0BC82956E30000D52C24 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
