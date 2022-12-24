@@ -16,6 +16,8 @@
 		586A0BD72956E4A700D52C24 /* SF-Pro-Display-Bold.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BD62956E4A700D52C24 /* SF-Pro-Display-Bold.OTF */; };
 		586A0BD92956E4B700D52C24 /* SF-Pro-Display-Regular.OTF in Resources */ = {isa = PBXBuildFile; fileRef = 586A0BD82956E4B700D52C24 /* SF-Pro-Display-Regular.OTF */; };
 		586A0BDE2956F2E900D52C24 /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BDD2956F2E900D52C24 /* GameVC.swift */; };
+		586A0BE32956F5B100D52C24 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BE22956F5B100D52C24 /* Constants.swift */; };
+		586A0BE62956F93800D52C24 /* UISegmentedControlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BE52956F93800D52C24 /* UISegmentedControlExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		586A0BD62956E4A700D52C24 /* SF-Pro-Display-Bold.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Bold.OTF"; sourceTree = "<group>"; };
 		586A0BD82956E4B700D52C24 /* SF-Pro-Display-Regular.OTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Regular.OTF"; sourceTree = "<group>"; };
 		586A0BDD2956F2E900D52C24 /* GameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
+		586A0BE22956F5B100D52C24 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		586A0BE52956F93800D52C24 /* UISegmentedControlExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControlExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,11 +66,14 @@
 		586A0BBF2956E30000D52C24 /* SlotsGames */ = {
 			isa = PBXGroup;
 			children = (
+				586A0BE42956F90100D52C24 /* Extensions */,
+				586A0BCE2956E30100D52C24 /* Info.plist */,
 				586A0BDC2956F25400D52C24 /* ApplicationLayer */,
 				586A0BE12956F36000D52C24 /* Models */,
 				586A0BE02956F35600D52C24 /* Views */,
 				586A0BDF2956F31300D52C24 /* Controllers */,
 				586A0BDB2956F18600D52C24 /* SupportingFiles */,
+				586A0BE22956F5B100D52C24 /* Constants.swift */,
 			);
 			path = SlotsGames;
 			sourceTree = "<group>";
@@ -96,7 +103,6 @@
 			children = (
 				586A0BC02956E30000D52C24 /* AppDelegate.swift */,
 				586A0BC22956E30000D52C24 /* SceneDelegate.swift */,
-				586A0BCE2956E30100D52C24 /* Info.plist */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -122,6 +128,14 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		586A0BE42956F90100D52C24 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				586A0BE52956F93800D52C24 /* UISegmentedControlExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				586A0BE62956F93800D52C24 /* UISegmentedControlExtension.swift in Sources */,
+				586A0BE32956F5B100D52C24 /* Constants.swift in Sources */,
 				586A0BC52956E30000D52C24 /* MainVC.swift in Sources */,
 				586A0BC12956E30000D52C24 /* AppDelegate.swift in Sources */,
 				586A0BDE2956F2E900D52C24 /* GameVC.swift in Sources */,
@@ -344,7 +360,6 @@
 				INFOPLIST_FILE = SlotsGames/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -372,7 +387,6 @@
 				INFOPLIST_FILE = SlotsGames/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
