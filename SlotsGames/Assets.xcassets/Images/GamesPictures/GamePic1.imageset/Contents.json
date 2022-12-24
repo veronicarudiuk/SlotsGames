@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "GamePic1.svg",
-      "idiom" : "universal"
+      "filename" : "Frame 471.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Frame 471@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Frame 471@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

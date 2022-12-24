@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "ChestIcon.svg",
-      "idiom" : "universal"
+      "filename" : "Legendary_Champion_Chest 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Legendary_Champion_Chest 1@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Legendary_Champion_Chest 1@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

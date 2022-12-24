@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "Icon2.5.svg",
-      "idiom" : "universal"
+      "filename" : "Frame 432.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Frame 432@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Frame 432@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

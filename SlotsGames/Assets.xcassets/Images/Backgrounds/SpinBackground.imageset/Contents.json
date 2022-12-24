@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "SpinBackground.svg",
-      "idiom" : "universal"
+      "filename" : "Background_spin.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Background_spin@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Background_spin@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

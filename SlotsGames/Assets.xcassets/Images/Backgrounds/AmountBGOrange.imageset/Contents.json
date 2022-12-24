@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "AmountBGOrange.svg",
-      "idiom" : "universal"
+      "filename" : "bank.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "bank@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "bank@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
