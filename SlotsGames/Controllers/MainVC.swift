@@ -11,16 +11,17 @@ import SwiftUI
 class MainVC: UIViewController {
     
     lazy var darkBackground = UIView()
-    lazy var categoryPicker = UISegmentedControl(items: ["Popular", "All Games"])
-    let imager = UIImage().withTintColor(.systemPink)
-
+    lazy var popularButton = UIButton()
+    lazy var allGamesButton = UIButton()
+    lazy var redUnderlinePopular = UIImageView()
+    lazy var redUnderlineAll = UIImageView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: K.BrandColors.bottomBG)
         
         setupDarkBackground()
-        setupCategoryPicker()
-        
+        setupButtons()
     }
     
     //MARK: - setupDarkBackground
@@ -30,31 +31,74 @@ class MainVC: UIViewController {
         
         view.addSubview(darkBackground)
         darkBackground.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    darkBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 123),
-                    darkBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    darkBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    darkBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                ])
+        NSLayoutConstraint.activate([
+            darkBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 123),
+            darkBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            darkBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            darkBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
     }
     
-    private func setupCategoryPicker() {
-        categoryPicker.backgroundColor = .clear
-        categoryPicker.selectedSegmentIndex = 0
-        categoryPicker.setupCustomSegmentControl()
+    //MARK: - setupButtons and setupButtonImages
+    private func setupButtons() {
+        view.addSubview(popularButton)
+        view.addSubview(allGamesButton)
+        view.addSubview(redUnderlinePopular)
+        view.addSubview(redUnderlineAll)
         
-        view.addSubview(categoryPicker)
-        categoryPicker.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    categoryPicker.topAnchor.constraint(equalTo: darkBackground.topAnchor, constant: 29),
-                    categoryPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 81),
-                    categoryPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -62),
-                    categoryPicker.heightAnchor.constraint(equalToConstant: 31),
-                ])
+        let controlStates: Array<UIControl.State> = [.normal, .selected]
+        for controlState in controlStates {
+            popularButton.setTitle(NSLocalizedString("Popular", comment: ""), for: controlState)
+            allGamesButton.setTitle(NSLocalizedString("All Games", comment: ""), for: controlState)
+        }
+        buttonsApperance()
+        popularButton.isSelected = true
+        
+        popularButton.addTarget(target, action: #selector(keyPressed(_:)), for: .touchUpInside)
+        allGamesButton.addTarget(target, action: #selector(keyPressed(_:)), for: .touchUpInside)
+        
+        popularButton.translatesAutoresizingMaskIntoConstraints = false
+        allGamesButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            popularButton.topAnchor.constraint(equalTo: darkBackground.topAnchor, constant: 29),
+            popularButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 81),
+            allGamesButton.topAnchor.constraint(equalTo: darkBackground.topAnchor, constant: 29),
+            allGamesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -62)
+        ])
+        
+        setupButtonImages(image: redUnderlinePopular, connectedButton: popularButton)
+        setupButtonImages(image: redUnderlineAll, connectedButton: allGamesButton)
+        redUnderlineAll.isHidden = true
     }
-
-
     
+    private func buttonsApperance() {
+        for button in [popularButton, allGamesButton] {
+            switch button.isSelected {
+            case true:
+                button.titleLabel?.font = UIFont(name: K.Fonts.sfProDisplayBold, size: 20)
+                button.titleLabel?.textColor = .white
+            case false:
+                button.titleLabel?.font = UIFont(name: K.Fonts.sfProDisplayRegular, size: 20)
+                button.titleLabel?.textColor = UIColor(named: K.BrandColors.lightGrayText)
+            }
+        }
+    }
+    
+    @objc private func keyPressed(_ sender: UIButton) {
+        popularButton.isSelected = !popularButton.isSelected
+        redUnderlinePopular.isHidden = !redUnderlinePopular.isHidden
+        allGamesButton.isSelected = !allGamesButton.isSelected
+        redUnderlineAll.isHidden = !redUnderlineAll.isHidden
+        buttonsApperance()
+    }
+    
+    private func setupButtonImages(image: UIImageView, connectedButton: UIButton) {
+        view.addSubview(image)
+        image.image = UIImage(named: "RedUnderline")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.topAnchor.constraint(equalTo: connectedButton.bottomAnchor, constant: 3).isActive = true
+        image.centerXAnchor.constraint(equalTo: connectedButton.centerXAnchor).isActive = true
+    }
 }
 
 
