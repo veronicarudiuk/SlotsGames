@@ -13,7 +13,6 @@ struct K {
         static let redStroke = "RedStroke"
         static let topBG = "TopBG"
         static let lightGrayText = "LightGrayText"
-        static let accentColor = "AccentColor"
     }
     
     struct Fonts {
