@@ -182,28 +182,38 @@ class MainVC: UIViewController {
             
         ])
     }
-}
-
-
-
-
-
-
-
-struct SwiftUIController: UIViewControllerRepresentable {
-    typealias UIViewControllerType = MainVC
     
-    func makeUIViewController(context: Context) -> UIViewControllerType {
-        let viewController = UIViewControllerType()
-        return viewController
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-    }
+    //    фиксирую этот экран в портретном режиме
+        override func viewWillAppear(_ animated: Bool) {
+            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        }
+        
+        //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
+        override func viewWillDisappear(_ animated: Bool) {
+            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+        }
 }
 
-struct SwiftUIController_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIController().edgesIgnoringSafeArea(.all)
-    }
-}
+
+
+
+
+
+
+//struct SwiftUIController: UIViewControllerRepresentable {
+//    typealias UIViewControllerType = MainVC
+//    
+//    func makeUIViewController(context: Context) -> UIViewControllerType {
+//        let viewController = UIViewControllerType()
+//        return viewController
+//    }
+//    
+//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+//    }
+//}
+//
+//struct SwiftUIController_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SwiftUIController().edgesIgnoringSafeArea(.all)
+//    }
+//}
