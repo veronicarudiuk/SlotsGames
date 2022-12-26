@@ -12,7 +12,7 @@ class GameVC: UIViewController {
     
     lazy var mainBackground = UIImageView()
     lazy var spinBackground = UIImageView()
-    lazy var homeIcon = UIButton()
+    lazy var homeButton = UIButton()
     lazy var chestIcon = UIImageView()
     lazy var moneyLabel = UILabel()
     lazy var moneySection = UIView()
@@ -24,11 +24,13 @@ class GameVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBackgrounds()
-        setupHomeIcon()
+        setupHomeButton()
         setupStackView()
         setupMoneySection()
         setupSpinIcon()
         setupStepper()
+        
+        navigationController?.isNavigationBarHidden = true
     }
     
     private func setupBackgrounds() {
@@ -54,18 +56,26 @@ class GameVC: UIViewController {
     }
     
     
-    private func setupHomeIcon() {
-        homeIcon.setImage(UIImage(named: "HomeIcon"), for: .normal)
+    private func setupHomeButton() {
+        homeButton.setImage(UIImage(named: "HomeIcon"), for: .normal)
+        homeButton.addTarget(target, action: #selector(homeButtonAction(_:)), for: .touchUpInside)
         
-        view.addSubview(homeIcon)
-        homeIcon.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(homeButton)
+        homeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            homeIcon.topAnchor.constraint(equalTo: view.topAnchor, constant: 25),
-            homeIcon.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            homeIcon.heightAnchor.constraint(equalToConstant: 25),
-            homeIcon.widthAnchor.constraint(equalToConstant: 26)
+            homeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25),
+            homeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            homeButton.heightAnchor.constraint(equalToConstant: 25),
+            homeButton.widthAnchor.constraint(equalToConstant: 26)
         ])
     }
+    
+    @objc private func homeButtonAction(_ sender: UIButton) {
+//           let mainVC = MainVC()
+//           navigationController?.pushViewController(mainVC, animated: true)
+        
+        navigationController?.popToRootViewController(animated: true)
+       }
     
     private func setupStackView() {
         view.addSubview(mainStackView)

@@ -161,6 +161,10 @@ class MainVC: UIViewController {
         slotsGameTwoButton.setImage(UIImage(named: "GamePic2"), for: .normal)
         slotsGameThreeButton.setImage(UIImage(named: "GamePic3"), for: .normal)
         
+        slotsGameOneButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
+        slotsGameTwoButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
+        slotsGameTwoButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
+        
         slotsGameTwoButton.isHidden = true
         slotsGameThreeButton.isHidden = true
         
@@ -182,6 +186,13 @@ class MainVC: UIViewController {
             
         ])
     }
+    
+    @objc private func openGameAction(_ sender: UIButton) {
+           let gameVC = GameVC()
+           navigationController?.pushViewController(gameVC, animated: true)
+        
+//        navigationController?.popToRootViewController(animated: true)
+       }
     
     //    фиксирую этот экран в портретном режиме
         override func viewWillAppear(_ animated: Bool) {
