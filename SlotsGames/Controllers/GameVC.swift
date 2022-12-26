@@ -25,11 +25,10 @@ class GameVC: UIViewController {
         super.viewDidLoad()
         setupBackgrounds()
         setupHomeButton()
-        setupStackView()
         setupMoneySection()
         setupSpinIcon()
         setupStepper()
-        
+        setupStackView()
         navigationController?.isNavigationBarHidden = true
     }
     
@@ -71,21 +70,8 @@ class GameVC: UIViewController {
     }
     
     @objc private func homeButtonAction(_ sender: UIButton) {
-//           let mainVC = MainVC()
-//           navigationController?.pushViewController(mainVC, animated: true)
-        
         navigationController?.popToRootViewController(animated: true)
        }
-    
-    private func setupStackView() {
-        view.addSubview(mainStackView)
-        mainStackView.distribution = .fillProportionally
-        mainStackView.axis = .vertical
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31).isActive = true
-        mainStackView.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: 21).isActive = true
-    }
     
     private func setupMoneySection() {
         moneySection.addSubview(chestIcon)
@@ -131,8 +117,17 @@ class GameVC: UIViewController {
         customStepper.heightAnchor.constraint(equalToConstant: 33).isActive = true
     }
     
-    
-    
+    private func setupStackView() {
+        view.addSubview(mainStackView)
+        mainStackView.distribution = .fillProportionally
+        mainStackView.axis = .vertical
+//        mainStackView.alignment = .center
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31).isActive = true
+        mainStackView.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: 21).isActive = true
+        mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47).isActive = true
+    }
     
     //    фиксирую этот экран в портретном режиме
     override func viewWillAppear(_ animated: Bool) {

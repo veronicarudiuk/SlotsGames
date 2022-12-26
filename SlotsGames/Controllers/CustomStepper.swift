@@ -29,8 +29,9 @@ class CustomStepper: UIView {
     func setupApperence() {
         decreaseButton.setTitle("-", for: .normal)
         increaseButton.setTitle("+", for: .normal)
-        decreaseButton.isHidden = false
+
         decreaseButton.addTarget(target, action: #selector(keyPressed(_:)), for: .touchUpInside)
+        increaseButton.addTarget(target, action: #selector(keyPressed(_:)), for: .touchUpInside)
         
         self.addSubview(decreaseButton)
         self.addSubview(increaseButton)
@@ -76,7 +77,18 @@ class CustomStepper: UIView {
     }
     
     @objc func keyPressed(_ sender: UIButton) {
-        print("djnjndwsjndejndewj")
+        switch sender {
+        case increaseButton:
+            value += 50
+        case decreaseButton where value == 0:
+            break
+        case decreaseButton:
+            value -= 50
+        default:
+            return
+        }
+        
+        valueLabel.text = String(value)
     }
 }
 
