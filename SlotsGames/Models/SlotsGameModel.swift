@@ -9,4 +9,5 @@ import Foundation
 
 struct SlotsGameModel {
     let slotsPackImages: [String]
+    let numberOfColumns: Int
 }

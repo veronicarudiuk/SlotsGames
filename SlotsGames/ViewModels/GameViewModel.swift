@@ -9,10 +9,7 @@ import Foundation
 
 struct GameViewModel {
     
+    var gameSlotsPack = SlotsGameModel(slotsPackImages: [], numberOfColumns: 0)
     let infoTitle = Box("")
-    
-    
-    func userSpinButtonPressed(rate: Int, userMoney: Int) {
-        
-    }
+    var userMoney = UserMoney().getUserMoney()
 }

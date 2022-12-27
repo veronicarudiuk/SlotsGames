@@ -20,4 +20,9 @@ struct K {
         static let sfProDisplayBold = "SF Pro Display Bold"
         static let sfProDisplayRegular = "SF Pro Display Regular"
     }
+    
+    struct Sounds {
+        static let winSound = "win-sound"
+        static let pullSound = "pull-sound"
+    }
 }

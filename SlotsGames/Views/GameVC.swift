@@ -6,32 +6,54 @@
 //
 
 import UIKit
-import SwiftUI
 
 class GameVC: UIViewController {
-    
+
     lazy var mainBackground = UIImageView()
     lazy var spinBackground = UIImageView()
     lazy var homeButton = UIButton()
     lazy var chestIcon = UIImageView()
     lazy var moneyLabel = UILabel()
-    lazy var spinIcon = UIButton()
+    lazy var spinButton = UIButton()
     lazy var customStepper = CustomStepper()
-    lazy var infoTitle = UILabel()
+    lazy var resultLabel = UILabel()
     lazy var slotsPicker = UIPickerView()
     
     var viewModel = GameViewModel()
+    
+    private var player = AudioManager()
+    
+    var component1 = [Int]()
+    var component2 = [Int]()
+    var component3 = [Int]()
+    var component4 = [Int]()
+    var component5 = [Int]()
+    
+    func randomNumber() -> Int {
+        return Int.random(in: 0...8)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBackgrounds()
         setupHomeButton()
         setupMoneySection()
-        setupSpinIcon()
+        setupSpinButton()
         setupStepper()
-        setupInfoTitle()
-        setupSlotsPicker()
+        setupResultLabel()
+        setupSlotsPickerConstraints()
         navigationController?.isNavigationBarHidden = true
+        slotsPicker.dataSource = self
+        slotsPicker.delegate = self
+        slotsPicker.isUserInteractionEnabled = false
+        
+        for _ in 0...8 {
+            component1.append(randomNumber())
+            component2.append(randomNumber())
+            component3.append(randomNumber())
+            component4.append(randomNumber())
+            component5.append(randomNumber())
+        }
     }
     
     //MARK: - setupBackgrounds
@@ -105,18 +127,41 @@ class GameVC: UIViewController {
         chestIcon.image = UIImage(named: "ChestIcon")
     }
     
-    //MARK: - setupSpinIcon
-    private func setupSpinIcon() {
-        view.addSubview(spinIcon)
-        spinIcon.translatesAutoresizingMaskIntoConstraints = false
+    //MARK: - setupSpinButton
+    private func setupSpinButton() {
+        view.addSubview(spinButton)
+        spinButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            spinIcon.widthAnchor.constraint(equalToConstant: 150),
-            spinIcon.heightAnchor.constraint(equalToConstant: 150),
-            spinIcon.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: 30),
-            spinIcon.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
+            spinButton.widthAnchor.constraint(equalToConstant: 150),
+            spinButton.heightAnchor.constraint(equalToConstant: 150),
+            spinButton.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: 30),
+            spinButton.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
-        spinIcon.setImage(UIImage(named: "SpinIcon"), for: .normal)
+        spinButton.setImage(UIImage(named: "SpinIcon"), for: .normal)
+        spinButton.addTarget(target, action: #selector(spinButtonPressed(_:)), for: .touchUpInside)
     }
+    
+    @objc private func spinButtonPressed(_ sender: UIButton) {
+        player.playSound(soundName: K.Sounds.pullSound)
+        
+        slotsPicker.selectRow((randomNumber()), inComponent: 0, animated: true)
+        slotsPicker.selectRow((randomNumber()), inComponent: 1, animated: true)
+        slotsPicker.selectRow((randomNumber()), inComponent: 2, animated: true)
+        slotsPicker.selectRow((randomNumber()), inComponent: 3, animated: true)
+        slotsPicker.selectRow((randomNumber()), inComponent: 4, animated: true)
+        
+        if(component1[slotsPicker.selectedRow(inComponent: 0)] == component2[slotsPicker.selectedRow(inComponent: 0)]) {
+            resultLabel.text = "Win!"
+            player.playSound(soundName: K.Sounds.winSound)
+        } else {
+            resultLabel.text = "Play again"
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: .curveEaseOut) {
+            self.spinButton.bounds.size.width += 10
+        }
+    }
+
     
     //MARK: - setupStepper
     private func setupStepper() {
@@ -124,34 +169,35 @@ class GameVC: UIViewController {
         customStepper.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             customStepper.heightAnchor.constraint(equalToConstant: 33),
-            customStepper.topAnchor.constraint(equalTo: spinIcon.bottomAnchor, constant: 30),
+            customStepper.topAnchor.constraint(equalTo: spinButton.bottomAnchor, constant: 30),
             customStepper.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
     }
     
-    private func setupInfoTitle() {
-        view.addSubview(infoTitle)
-        infoTitle.translatesAutoresizingMaskIntoConstraints = false
+    //MARK: - setupResultLabel
+    private func setupResultLabel() {
+        view.addSubview(resultLabel)
+        resultLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            infoTitle.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -14),
-            infoTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 306),
-            infoTitle.widthAnchor.constraint(equalToConstant: 115),
-            infoTitle.heightAnchor.constraint(equalToConstant: 97)
+            resultLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -14),
+            resultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 306),
+            resultLabel.widthAnchor.constraint(equalToConstant: 115),
+            resultLabel.heightAnchor.constraint(equalToConstant: 97)
         ])
         
-        infoTitle.text = "WIN: +500"
-//        infoTitle.textAlignment = .center
-        infoTitle.font = UIFont(name: K.Fonts.robotoBold, size: 22)
-        infoTitle.textColor = .white
+        resultLabel.text = "WIN: +500"
+        resultLabel.font = UIFont(name: K.Fonts.robotoBold, size: 22)
+        resultLabel.textColor = .white
         
         viewModel.infoTitle.bind { infoTitle in
             DispatchQueue.main.async {
-                self.infoTitle.text = infoTitle
+                self.resultLabel.text = infoTitle
             }
         }
     }
     
-    private func setupSlotsPicker() {
+    //MARK: - setupSlotsPickerConstraints
+    private func setupSlotsPickerConstraints() {
         view.addSubview(slotsPicker)
         slotsPicker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -160,8 +206,6 @@ class GameVC: UIViewController {
             slotsPicker.widthAnchor.constraint(equalToConstant: 530),
             slotsPicker.heightAnchor.constraint(equalToConstant: 290)
         ])
-        
-        
     }
     
     //    фиксирую этот экран в портретном режиме
@@ -176,21 +220,54 @@ class GameVC: UIViewController {
     
 }
 
-
-struct SwiftUIController: UIViewControllerRepresentable {
-    typealias UIViewControllerType = GameVC
-    
-    func makeUIViewController(context: Context) -> UIViewControllerType {
-        let viewController = UIViewControllerType()
-        return viewController
+//MARK: - UIPickerViewDataSource
+extension GameVC: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        viewModel.gameSlotsPack.numberOfColumns
     }
     
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        viewModel.gameSlotsPack.slotsPackImages.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        90
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        90
     }
 }
 
-struct SwiftUIController_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIController().edgesIgnoringSafeArea(.all)
+//MARK: - UIPickerViewDelegate
+extension GameVC: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        let pickerView = UIView()
+        
+        let pickerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 90, height: 90))
+        
+        switch component {
+        case 0:
+            pickerImageView.image = UIImage(named: viewModel.gameSlotsPack.slotsPackImages[component1[row]])
+            break
+        case 1:
+            pickerImageView.image = UIImage(named: viewModel.gameSlotsPack.slotsPackImages[component2[row]])
+            break
+        case 2:
+            pickerImageView.image = UIImage(named: viewModel.gameSlotsPack.slotsPackImages[component3[row]])
+            break
+        case 3:
+            pickerImageView.image = UIImage(named: viewModel.gameSlotsPack.slotsPackImages[component4[row]])
+            break
+        case 4:
+            pickerImageView.image = UIImage(named: viewModel.gameSlotsPack.slotsPackImages[component5[row]])
+            break
+        default:
+            pickerImageView.image = UIImage(named: viewModel.gameSlotsPack.slotsPackImages[component1[row]])
+        }
+        
+        pickerView.addSubview(pickerImageView)
+        return pickerView
     }
 }

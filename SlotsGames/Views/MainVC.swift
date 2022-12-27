@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class MainVC: UIViewController {
     
@@ -22,6 +21,8 @@ class MainVC: UIViewController {
     lazy var slotsGameTwoButton = UIButton()
     lazy var slotsGameThreeButton = UIButton()
     
+    var viewModel = MainViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: K.BrandColors.bottomBG)
@@ -29,7 +30,7 @@ class MainVC: UIViewController {
         setupDarkBackground()
         setupProfileIcon()
         setupMoneySection()
-        setupButtons()
+        setupControlButtons()
         setupSlotsGameButtons()
     }
     
@@ -78,7 +79,7 @@ class MainVC: UIViewController {
             chestIcon.widthAnchor.constraint(equalToConstant: 53.62)
         ])
         
-        moneyLabel.text = "123 456"
+        moneyLabel.text = String(UserMoney().getUserMoney())
         moneyLabel.textAlignment = .center
         moneyLabel.font = UIFont(name: K.Fonts.robotoBold, size: 18)
         moneyLabel.textColor = .white
@@ -90,8 +91,8 @@ class MainVC: UIViewController {
         
     }
     
-    //MARK: - setupButtons and setupButtonImages
-    private func setupButtons() {
+    //MARK: - setupControlButtons and setupButtonImages
+    private func setupControlButtons() {
         view.addSubview(popularButton)
         view.addSubview(allGamesButton)
         view.addSubview(redUnderlinePopular)
@@ -105,8 +106,8 @@ class MainVC: UIViewController {
         popularButton.isSelected = true
         buttonsApperance()
         
-        popularButton.addTarget(target, action: #selector(keyPressed(_:)), for: .touchUpInside)
-        allGamesButton.addTarget(target, action: #selector(keyPressed(_:)), for: .touchUpInside)
+        popularButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
+        allGamesButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
         
         popularButton.translatesAutoresizingMaskIntoConstraints = false
         allGamesButton.translatesAutoresizingMaskIntoConstraints = false
@@ -143,7 +144,7 @@ class MainVC: UIViewController {
         image.centerXAnchor.constraint(equalTo: connectedButton.centerXAnchor).isActive = true
     }
     
-    @objc private func keyPressed(_ sender: UIButton) {
+    @objc private func controlButtonPressed(_ sender: UIButton) {
         popularButton.isSelected = !popularButton.isSelected
         redUnderlinePopular.isHidden = !redUnderlinePopular.isHidden
         allGamesButton.isSelected = !allGamesButton.isSelected
@@ -163,6 +164,10 @@ class MainVC: UIViewController {
         slotsGameOneButton.setImage(UIImage(named: "GamePic1"), for: .normal)
         slotsGameTwoButton.setImage(UIImage(named: "GamePic2"), for: .normal)
         slotsGameThreeButton.setImage(UIImage(named: "GamePic3"), for: .normal)
+        
+        slotsGameOneButton.tag = 0
+        slotsGameTwoButton.tag = 1
+        slotsGameThreeButton.tag = 2
         
         slotsGameOneButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
         slotsGameTwoButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
@@ -191,43 +196,18 @@ class MainVC: UIViewController {
     }
     
     @objc private func openGameAction(_ sender: UIButton) {
-           let gameVC = GameVC()
-           navigationController?.pushViewController(gameVC, animated: true)
-        
-//        navigationController?.popToRootViewController(animated: true)
-       }
+        let gameVC = GameVC()
+        gameVC.viewModel.gameSlotsPack = viewModel.getSlotsPack(gameNumber: sender.tag)
+        navigationController?.pushViewController(gameVC, animated: true)
+    }
     
     //    фиксирую этот экран в портретном режиме
-        override func viewWillAppear(_ animated: Bool) {
-            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        }
-        
-        //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
-        override func viewWillDisappear(_ animated: Bool) {
-            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+    }
+    
+    //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
+    override func viewWillDisappear(_ animated: Bool) {
+        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+    }
 }
-
-
-
-
-
-
-
-//struct SwiftUIController: UIViewControllerRepresentable {
-//    typealias UIViewControllerType = MainVC
-//    
-//    func makeUIViewController(context: Context) -> UIViewControllerType {
-//        let viewController = UIViewControllerType()
-//        return viewController
-//    }
-//    
-//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-//    }
-//}
-//
-//struct SwiftUIController_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SwiftUIController().edgesIgnoringSafeArea(.all)
-//    }
-//}

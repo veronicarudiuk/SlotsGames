@@ -22,6 +22,10 @@
 		58DB58C1295B154F00A87D32 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DB58C0295B154F00A87D32 /* Box.swift */; };
 		58DB58C4295B2E4F00A87D32 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DB58C3295B2E4F00A87D32 /* GameViewModel.swift */; };
 		58DB58C7295B348900A87D32 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DB58C6295B348900A87D32 /* MainViewModel.swift */; };
+		58DB58C9295B462C00A87D32 /* UserMoney.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DB58C8295B462C00A87D32 /* UserMoney.swift */; };
+		58DB58CD295B729D00A87D32 /* win-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 58DB58CC295B729D00A87D32 /* win-sound.mp3 */; };
+		58DB58D1295B751000A87D32 /* pull-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 58DB58D0295B751000A87D32 /* pull-sound.mp3 */; };
+		58DB58D5295B765B00A87D32 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DB58D4295B765B00A87D32 /* AudioManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		58DB58C0295B154F00A87D32 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		58DB58C3295B2E4F00A87D32 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		58DB58C6295B348900A87D32 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		58DB58C8295B462C00A87D32 /* UserMoney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMoney.swift; sourceTree = "<group>"; };
+		58DB58CC295B729D00A87D32 /* win-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "win-sound.mp3"; sourceTree = "<group>"; };
+		58DB58D0295B751000A87D32 /* pull-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "pull-sound.mp3"; sourceTree = "<group>"; };
+		58DB58D4295B765B00A87D32 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,7 @@
 			children = (
 				586A0BCE2956E30100D52C24 /* Info.plist */,
 				586A0BE22956F5B100D52C24 /* Constants.swift */,
+				58DB58D4295B765B00A87D32 /* AudioManager.swift */,
 				586A0BDC2956F25400D52C24 /* ApplicationLayer */,
 				586A0BE12956F36000D52C24 /* Models */,
 				586A0BE02956F35600D52C24 /* ViewModels */,
@@ -99,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				586A0BDA2956E4EE00D52C24 /* Fonts */,
+				58DB58D2295B751500A87D32 /* Sounds */,
 				586A0BC92956E30100D52C24 /* Assets.xcassets */,
 				586A0BCB2956E30100D52C24 /* LaunchScreen.storyboard */,
 			);
@@ -138,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				58DB58BC295B11A500A87D32 /* SlotsGameModel.swift */,
+				58DB58C8295B462C00A87D32 /* UserMoney.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -148,6 +159,15 @@
 				58DB58C0295B154F00A87D32 /* Box.swift */,
 			);
 			path = Bindings;
+			sourceTree = "<group>";
+		};
+		58DB58D2295B751500A87D32 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				58DB58CC295B729D00A87D32 /* win-sound.mp3 */,
+				58DB58D0295B751000A87D32 /* pull-sound.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +232,9 @@
 				586A0BCA2956E30100D52C24 /* Assets.xcassets in Resources */,
 				586A0BD52956E45400D52C24 /* Roboto-Bold.ttf in Resources */,
 				586A0BD72956E4A700D52C24 /* SF-Pro-Display-Bold.OTF in Resources */,
+				58DB58CD295B729D00A87D32 /* win-sound.mp3 in Resources */,
 				586A0BD92956E4B700D52C24 /* SF-Pro-Display-Regular.OTF in Resources */,
+				58DB58D1295B751000A87D32 /* pull-sound.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,11 +250,13 @@
 				5814BE482959FB7F00016660 /* CustomStepper.swift in Sources */,
 				586A0BC12956E30000D52C24 /* AppDelegate.swift in Sources */,
 				586A0BDE2956F2E900D52C24 /* GameVC.swift in Sources */,
+				58DB58C9295B462C00A87D32 /* UserMoney.swift in Sources */,
 				586A0BC32956E30000D52C24 /* SceneDelegate.swift in Sources */,
 				58DB58BD295B11A500A87D32 /* SlotsGameModel.swift in Sources */,
 				58DB58C4295B2E4F00A87D32 /* GameViewModel.swift in Sources */,
 				58DB58C1295B154F00A87D32 /* Box.swift in Sources */,
 				58DB58C7295B348900A87D32 /* MainViewModel.swift in Sources */,
+				58DB58D5295B765B00A87D32 /* AudioManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
