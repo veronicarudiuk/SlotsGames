@@ -15,10 +15,8 @@ class GameVC: UIViewController {
     lazy var homeButton = UIButton()
     lazy var chestIcon = UIImageView()
     lazy var moneyLabel = UILabel()
-    lazy var moneySection = UIView()
     lazy var spinIcon = UIButton()
     lazy var customStepper = CustomStepper()
-    lazy var mainStackView = UIStackView(arrangedSubviews: [moneySection, spinIcon, customStepper])
 
     
     override func viewDidLoad() {
@@ -28,7 +26,6 @@ class GameVC: UIViewController {
         setupMoneySection()
         setupSpinIcon()
         setupStepper()
-        setupStackView()
         navigationController?.isNavigationBarHidden = true
     }
     
@@ -74,22 +71,20 @@ class GameVC: UIViewController {
        }
     
     private func setupMoneySection() {
-        moneySection.addSubview(chestIcon)
-        moneySection.addSubview(moneyLabel)
+        view.addSubview(chestIcon)
+        view.addSubview(moneyLabel)
         chestIcon.translatesAutoresizingMaskIntoConstraints = false
         moneyLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chestIcon.topAnchor.constraint(equalTo: moneySection.topAnchor),
+            chestIcon.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             chestIcon.leadingAnchor.constraint(equalTo: moneyLabel.leadingAnchor, constant: 28),
             chestIcon.widthAnchor.constraint(equalToConstant: 115),
             chestIcon.heightAnchor.constraint(equalToConstant: 97),
             
             moneyLabel.topAnchor.constraint(equalTo: chestIcon.topAnchor, constant: 72),
-            moneyLabel.leadingAnchor.constraint(equalTo: moneySection.leadingAnchor),
+            moneyLabel.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: 21),
             moneyLabel.heightAnchor.constraint(equalToConstant: 30),
             moneyLabel.widthAnchor.constraint(equalToConstant: 170),
-            
-            moneySection.heightAnchor.constraint(equalToConstant: 102)
         ])
         
         moneyLabel.text = "123 456"
@@ -104,30 +99,27 @@ class GameVC: UIViewController {
     }
     
     private func setupSpinIcon() {
+        view.addSubview(spinIcon)
         spinIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             spinIcon.widthAnchor.constraint(equalToConstant: 150),
-            spinIcon.heightAnchor.constraint(equalToConstant: 150)
+            spinIcon.heightAnchor.constraint(equalToConstant: 150),
+            spinIcon.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: 39),
+            spinIcon.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
         spinIcon.setImage(UIImage(named: "SpinIcon"), for: .normal)
     }
     
     private func setupStepper() {
+        view.addSubview(customStepper)
         customStepper.translatesAutoresizingMaskIntoConstraints = false
-        customStepper.heightAnchor.constraint(equalToConstant: 33).isActive = true
+        NSLayoutConstraint.activate([
+            customStepper.heightAnchor.constraint(equalToConstant: 33),
+            customStepper.topAnchor.constraint(equalTo: spinIcon.bottomAnchor, constant: 39),
+            customStepper.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
+        ])
     }
     
-    private func setupStackView() {
-        view.addSubview(mainStackView)
-        mainStackView.distribution = .fillProportionally
-        mainStackView.axis = .vertical
-//        mainStackView.alignment = .center
-        mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        mainStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31).isActive = true
-        mainStackView.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: 21).isActive = true
-        mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47).isActive = true
-    }
     
     //    фиксирую этот экран в портретном режиме
     override func viewWillAppear(_ animated: Bool) {

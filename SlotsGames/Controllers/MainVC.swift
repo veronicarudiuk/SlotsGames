@@ -42,7 +42,7 @@ class MainVC: UIViewController {
         view.addSubview(darkBackground)
         darkBackground.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            darkBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            darkBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
             darkBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             darkBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             darkBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -163,7 +163,7 @@ class MainVC: UIViewController {
         
         slotsGameOneButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
         slotsGameTwoButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
-        slotsGameTwoButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
+        slotsGameThreeButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
         
         slotsGameTwoButton.isHidden = true
         slotsGameThreeButton.isHidden = true

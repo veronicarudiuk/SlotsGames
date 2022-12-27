@@ -42,6 +42,12 @@ class CustomStepper: UIView {
         setupLabel(label: valueLabel)
         
         NSLayoutConstraint.activate([
+            decreaseButton.topAnchor.constraint(equalTo: self.topAnchor),
+            decreaseButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            decreaseButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            increaseButton.topAnchor.constraint(equalTo: self.topAnchor),
+            increaseButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            increaseButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             valueLabel.topAnchor.constraint(equalTo: self.topAnchor),
             valueLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             valueLabel.leadingAnchor.constraint(equalTo: decreaseButton.trailingAnchor, constant: 8),
@@ -60,6 +66,7 @@ class CustomStepper: UIView {
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor(named: K.BrandColors.redStroke)?.cgColor
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.heightAnchor.constraint(equalToConstant: 33).isActive = true
         label.widthAnchor.constraint(equalToConstant: 88).isActive = true
     }
     
