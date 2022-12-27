@@ -17,7 +17,10 @@ class GameVC: UIViewController {
     lazy var moneyLabel = UILabel()
     lazy var spinIcon = UIButton()
     lazy var customStepper = CustomStepper()
-
+    lazy var infoTitle = UILabel()
+    lazy var slotsPicker = UIPickerView()
+    
+    var viewModel = GameViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +29,12 @@ class GameVC: UIViewController {
         setupMoneySection()
         setupSpinIcon()
         setupStepper()
+        setupInfoTitle()
+        setupSlotsPicker()
         navigationController?.isNavigationBarHidden = true
     }
     
+    //MARK: - setupBackgrounds
     private func setupBackgrounds() {
         mainBackground.image = UIImage(named: "Background")
         spinBackground.image = UIImage(named: "SpinBackground")
@@ -51,7 +57,7 @@ class GameVC: UIViewController {
         ])
     }
     
-    
+    //MARK: - setupHomeButton
     private func setupHomeButton() {
         homeButton.setImage(UIImage(named: "HomeIcon"), for: .normal)
         homeButton.addTarget(target, action: #selector(homeButtonAction(_:)), for: .touchUpInside)
@@ -70,6 +76,7 @@ class GameVC: UIViewController {
         navigationController?.popToRootViewController(animated: true)
        }
     
+    //MARK: - setupMoneySection
     private func setupMoneySection() {
         view.addSubview(chestIcon)
         view.addSubview(moneyLabel)
@@ -98,28 +105,64 @@ class GameVC: UIViewController {
         chestIcon.image = UIImage(named: "ChestIcon")
     }
     
+    //MARK: - setupSpinIcon
     private func setupSpinIcon() {
         view.addSubview(spinIcon)
         spinIcon.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             spinIcon.widthAnchor.constraint(equalToConstant: 150),
             spinIcon.heightAnchor.constraint(equalToConstant: 150),
-            spinIcon.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: 39),
+            spinIcon.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: 30),
             spinIcon.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
         spinIcon.setImage(UIImage(named: "SpinIcon"), for: .normal)
     }
     
+    //MARK: - setupStepper
     private func setupStepper() {
         view.addSubview(customStepper)
         customStepper.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             customStepper.heightAnchor.constraint(equalToConstant: 33),
-            customStepper.topAnchor.constraint(equalTo: spinIcon.bottomAnchor, constant: 39),
+            customStepper.topAnchor.constraint(equalTo: spinIcon.bottomAnchor, constant: 30),
             customStepper.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
     }
     
+    private func setupInfoTitle() {
+        view.addSubview(infoTitle)
+        infoTitle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoTitle.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -14),
+            infoTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 306),
+            infoTitle.widthAnchor.constraint(equalToConstant: 115),
+            infoTitle.heightAnchor.constraint(equalToConstant: 97)
+        ])
+        
+        infoTitle.text = "WIN: +500"
+//        infoTitle.textAlignment = .center
+        infoTitle.font = UIFont(name: K.Fonts.robotoBold, size: 22)
+        infoTitle.textColor = .white
+        
+        viewModel.infoTitle.bind { infoTitle in
+            DispatchQueue.main.async {
+                self.infoTitle.text = infoTitle
+            }
+        }
+    }
+    
+    private func setupSlotsPicker() {
+        view.addSubview(slotsPicker)
+        slotsPicker.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            slotsPicker.topAnchor.constraint(equalTo: view.topAnchor, constant: 56),
+            slotsPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 93),
+            slotsPicker.widthAnchor.constraint(equalToConstant: 530),
+            slotsPicker.heightAnchor.constraint(equalToConstant: 290)
+        ])
+        
+        
+    }
     
     //    фиксирую этот экран в портретном режиме
     override func viewWillAppear(_ animated: Bool) {

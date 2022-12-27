@@ -49,6 +49,7 @@ class MainVC: UIViewController {
         ])
     }
     
+    //MARK: - setupProfileIcon
     func setupProfileIcon() {
         view.addSubview(profileIcon)
         profileIcon.image = UIImage(named: "ProfileIcon")
@@ -59,6 +60,7 @@ class MainVC: UIViewController {
         ])
     }
     
+    //MARK: - setupMoneySection
     func setupMoneySection() {
         view.addSubview(moneyLabel)
         view.addSubview(chestIcon)
@@ -133,6 +135,14 @@ class MainVC: UIViewController {
         }
     }
     
+    private func setupButtonImages(image: UIImageView, connectedButton: UIButton) {
+        view.addSubview(image)
+        image.image = UIImage(named: "RedUnderline")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.topAnchor.constraint(equalTo: connectedButton.bottomAnchor, constant: 3).isActive = true
+        image.centerXAnchor.constraint(equalTo: connectedButton.centerXAnchor).isActive = true
+    }
+    
     @objc private func keyPressed(_ sender: UIButton) {
         popularButton.isSelected = !popularButton.isSelected
         redUnderlinePopular.isHidden = !redUnderlinePopular.isHidden
@@ -143,14 +153,7 @@ class MainVC: UIViewController {
         buttonsApperance()
     }
     
-    private func setupButtonImages(image: UIImageView, connectedButton: UIButton) {
-        view.addSubview(image)
-        image.image = UIImage(named: "RedUnderline")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.topAnchor.constraint(equalTo: connectedButton.bottomAnchor, constant: 3).isActive = true
-        image.centerXAnchor.constraint(equalTo: connectedButton.centerXAnchor).isActive = true
-    }
-    
+    //MARK: - setupSlotsGameButtons
     private func setupSlotsGameButtons() {
         for button in [slotsGameOneButton, slotsGameTwoButton, slotsGameThreeButton] {
             view.addSubview(button)
