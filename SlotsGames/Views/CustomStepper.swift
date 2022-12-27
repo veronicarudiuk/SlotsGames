@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomStepper: UIView {
-    lazy var value: Int = 50
+    lazy var value = Box(Int())
     lazy var maxValue: Int = 300
     
     private let decreaseButton = UIButton()
@@ -27,6 +27,7 @@ class CustomStepper: UIView {
     }
     
     func setupApperence() {
+        value.value = 50
         decreaseButton.setTitle("-", for: .normal)
         increaseButton.setTitle("+", for: .normal)
 
@@ -56,7 +57,7 @@ class CustomStepper: UIView {
     }
     
     private func setupLabel(label: UILabel) {
-        label.text = String(value)
+        label.text = String(value.value)
         label.textColor = .white
         label.font = UIFont(name: K.Fonts.robotoBold, size: 22)
         label.textAlignment = .center
@@ -86,16 +87,16 @@ class CustomStepper: UIView {
     @objc func keyPressed(_ sender: UIButton) {
         switch sender {
         case increaseButton:
-            value += 50
-        case decreaseButton where value == 0:
+            value.value += 50
+        case decreaseButton where value.value == 0:
             break
         case decreaseButton:
-            value -= 50
+            value.value -= 50
         default:
             return
         }
         
-        valueLabel.text = String(value)
+        valueLabel.text = String(value.value)
     }
 }
 
