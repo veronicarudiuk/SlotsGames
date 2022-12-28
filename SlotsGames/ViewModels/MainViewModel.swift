@@ -13,7 +13,6 @@ struct MainViewModel {
         SlotsGameModel(slotsPackImages: ["Icon2.1", "Icon2.2", "Icon2.3", "Icon2.4", "Icon2.5", "Icon2.6", "Icon2.7", "Icon2.8", "Icon2.9"], numberOfColumns: 5),
         SlotsGameModel(slotsPackImages: ["Icon3.1", "Icon3.2", "Icon3.3", "Icon3.4", "Icon3.5", "Icon3.6", "Icon3.7", "Icon3.8", "Icon3.9"], numberOfColumns: 5)]
     
-    
     func getSlotsPack(gameNumber: Int) -> SlotsGameModel {
         return slotsGames[gameNumber]
     }

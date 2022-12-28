@@ -6,7 +6,6 @@
 //
 
 struct K {
-
     struct BrandColors {
         static let bottomBG = "BottomBG"
         static let redStroke = "RedStroke"

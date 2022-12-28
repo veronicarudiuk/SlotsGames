@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-class AudioManager {
+final class AudioManager {
     
     private var player = AVAudioPlayer()
     

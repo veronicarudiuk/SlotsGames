@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomStepper: UIView {
+final class CustomStepper: UIView {
     lazy var value = Box(Int())
     lazy var maxValue = Int()
     
@@ -27,7 +27,7 @@ class CustomStepper: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupApperence() {
+    private func setupApperence() {
         value.value = 50
         decreaseButton.setTitle("-", for: .normal)
         increaseButton.setTitle("+", for: .normal)
@@ -85,7 +85,7 @@ class CustomStepper: UIView {
         button.heightAnchor.constraint(equalToConstant: dynamic.constraintLandscape(33)).isActive = true
     }
     
-    @objc func keyPressed(_ sender: UIButton) {
+    @objc private func keyPressed(_ sender: UIButton) {
         AnimationManager.buttonPressAnimation(sender: sender)
         switch sender {
         case increaseButton where value.value == maxValue:
@@ -99,7 +99,6 @@ class CustomStepper: UIView {
         default:
             return
         }
-        
         valueLabel.text = String(value.value)
     }
 }

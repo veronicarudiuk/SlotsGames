@@ -8,24 +8,24 @@
 import UIKit
 
 class MainVC: UIViewController {
-    lazy var profileIcon = UIImageView()
-    lazy var chestIcon = UIImageView()
-    lazy var moneyLabel = UILabel()
-    lazy var darkBackground = UIView()
-    lazy var popularButton = UIButton()
-    lazy var allGamesButton = UIButton()
-    lazy var redUnderlinePopular = UIImageView()
-    lazy var redUnderlineAll = UIImageView()
-    lazy var slotsGameOneButton = UIButton()
-    lazy var slotsGameTwoButton = UIButton()
-    lazy var slotsGameThreeButton = UIButton()
+    private let profileIcon = UIImageView()
+    private let chestIcon = UIImageView()
+    private let moneyLabel = UILabel()
+    private let darkBackground = UIView()
+    private let popularButton = UIButton()
+    private let allGamesButton = UIButton()
+    private let redUnderlinePopular = UIImageView()
+    private let redUnderlineAll = UIImageView()
+    private let slotsGameOneButton = UIButton()
+    private let slotsGameTwoButton = UIButton()
+    private let slotsGameThreeButton = UIButton()
     
-    lazy var viewModel = MainViewModel()
-    lazy var dynamic = DynamicConstraintsManager()
+    private let viewModel = MainViewModel()
+    private let dynamic = DynamicConstraintsManager()
     
-    lazy var controlButtonsView = UIView()
-    lazy var horizontalStackView = UIStackView(arrangedSubviews: [slotsGameTwoButton, slotsGameThreeButton], axis: .horizontal, spacing: 16)
-    lazy var verticalStackView = UIStackView(arrangedSubviews: [slotsGameOneButton, horizontalStackView], axis: .vertical, spacing: 20)
+    private let controlButtonsView = UIView()
+    lazy var horizontalStackView = UIStackView()
+    lazy var verticalStackView = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,7 +99,6 @@ class MainVC: UIViewController {
         
         chestIcon.image = UIImage(named: "ChestIcon")
         profileIcon.image = UIImage(named: "ProfileIcon")
-        moneyLabel.text = String(UserMoney().getUserMoney())
         moneyLabel.textAlignment = .center
         moneyLabel.font = UIFont(name: K.Fonts.robotoBold, size: 18)
         moneyLabel.textColor = .white
@@ -182,8 +181,8 @@ class MainVC: UIViewController {
     
     //MARK: - setupSlotsGameImages
     private func setupSlotsGameImages() {
-        
-        
+        horizontalStackView = UIStackView(arrangedSubviews: [slotsGameTwoButton, slotsGameThreeButton], axis: .horizontal, spacing: 16)
+        verticalStackView = UIStackView(arrangedSubviews: [slotsGameOneButton, horizontalStackView], axis: .vertical, spacing: 20)
         
         view.addSubview(verticalStackView)
         verticalStackView.addSubview(slotsGameOneButton)
@@ -228,13 +227,14 @@ class MainVC: UIViewController {
     }
     
     
-        //    фиксирую этот экран в портретном режиме
-        override func viewWillAppear(_ animated: Bool) {
-            AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        }
+    //    фиксирую этот экран в портретном режиме
+    override func viewWillAppear(_ animated: Bool) {
+        ScreenLocker.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        moneyLabel.text = String(UserMoney().getUserMoney())
+    }
     
-        //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
-        override func viewWillDisappear(_ animated: Bool) {
-            AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
-        }
+    //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
+    override func viewWillDisappear(_ animated: Bool) {
+        ScreenLocker.lockOrientation(UIInterfaceOrientationMask.all)
+    }
 }

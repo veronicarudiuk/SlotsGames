@@ -8,18 +8,18 @@
 import UIKit
 
 class GameVC: UIViewController {
-    lazy var mainBackground = UIImageView()
-    lazy var spinBackground = UIImageView()
-    lazy var homeButton = UIButton()
-    lazy var chestIcon = UIImageView()
-    lazy var moneyLabel = UILabel()
-    lazy var spinButton = UIButton()
-    lazy var customStepper = CustomStepper()
-    lazy var resultLabel = UILabel()
-    lazy var slotsPicker = UIPickerView()
+    private let mainBackground = UIImageView()
+    private let spinBackground = UIImageView()
+    private let homeButton = UIButton()
+    private let chestIcon = UIImageView()
+    private let moneyLabel = UILabel()
+    private let spinButton = UIButton()
+    private let customStepper = CustomStepper()
+    private let resultLabel = UILabel()
+    private let slotsPicker = UIPickerView()
     
+    private let dynamic = DynamicConstraintsManager()
     lazy var viewModel = GameViewModel()
-    lazy var dynamic = DynamicConstraintsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -186,27 +186,24 @@ class GameVC: UIViewController {
         
         viewModel.currentMoney.bind { newValue in
             DispatchQueue.main.async {
-//                self.moneyLabel.text = String(newValue)
                 AnimationManager.textChangeAnimation(sender: self.moneyLabel, newValue: newValue)
                 self.customStepper.maxValue = newValue
-//                AnimationManager.textChangeAnimation(sender: self.moneyLabel)
             }
         }
         
         customStepper.value.bind { newValue in
             self.viewModel.currentRate = newValue
-            print(self.viewModel.currentRate)
         }
     }
     
     //    фиксирую этот экран в портретном режиме
     override func viewWillAppear(_ animated: Bool) {
-        AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeRight)
+        ScreenLocker.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeRight)
     }
-    
+
     //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
     override func viewWillDisappear(_ animated: Bool) {
-        AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+        ScreenLocker.lockOrientation(UIInterfaceOrientationMask.all)
     }
     
 }
@@ -221,10 +218,10 @@ extension GameVC: UIPickerViewDataSource {
         viewModel.gameSlotsPack.slotsPackImages.count * 3
     }
     
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat { dynamic.constraintLandscape(90)
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat { dynamic.constraintLandscape(80)
     }
     
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { dynamic.constraintLandscape(90)
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { dynamic.constraintLandscape(80)
     }
 }
 

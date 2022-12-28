@@ -7,16 +7,16 @@
 
 import UIKit
 
-class PreloaderScreen: UIViewController {
+final class PreloaderScreen: UIViewController {
     
-    let chestImage: UIImageView = {
+    private let chestImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "ChestIcon")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let progressBar: UIProgressView = {
+    private let progressBar: UIProgressView = {
         let progress = UIProgressView(progressViewStyle: .bar)
         progress.progressTintColor = UIColor(named: K.BrandColors.greenLoader)
         progress.trackTintColor = UIColor(named: K.BrandColors.lightGrayLoader)
@@ -27,17 +27,17 @@ class PreloaderScreen: UIViewController {
         return progress
     }()
     
-    let testTitle = UILabel()
-    let appTitle = UILabel()
-    let designTitle = UILabel()
-    let textView = UIView()
+    private let testTitle = UILabel()
+    private let appTitle = UILabel()
+    private let designTitle = UILabel()
+    private let textView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: K.BrandColors.bottomBG)
         setConstraints()
         setLabelsAppearance()
-        DispatchQueue.main.asyncAfter(deadline: .now()+1) { //4
+        DispatchQueue.main.asyncAfter(deadline: .now()+4) {
             let mainVC = MainVC()
             self.navigationController?.pushViewController(mainVC, animated: true)
         }
@@ -48,7 +48,7 @@ class PreloaderScreen: UIViewController {
         animation()
     }
     
-    func animation() {
+    private func animation() {
         UIView.animate(withDuration: 5.0) {
             self.progressBar.setProgress(1.0, animated: true)
         }
@@ -66,7 +66,7 @@ class PreloaderScreen: UIViewController {
         }
     }
     
-    func setLabelsAppearance() {
+    private func setLabelsAppearance() {
         testTitle.attributedText = NSAttributedString(string: "Test", attributes: [.kern: 2])
         appTitle.attributedText = NSAttributedString(string: "App", attributes: [.kern: 2])
         designTitle.attributedText = NSAttributedString(string: "Design", attributes: [.kern: 2])
@@ -78,7 +78,7 @@ class PreloaderScreen: UIViewController {
         }
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         let mainView = UIView()
         view.addSubview(mainView)
         mainView.addSubview(chestImage)
@@ -122,12 +122,12 @@ class PreloaderScreen: UIViewController {
     
     //    фиксирую этот экран в портретном режиме
     override func viewWillAppear(_ animated: Bool) {
-        AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        ScreenLocker.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
     }
 
     //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
     override func viewWillDisappear(_ animated: Bool) {
-        AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+        ScreenLocker.lockOrientation(UIInterfaceOrientationMask.all)
     }
 }
 

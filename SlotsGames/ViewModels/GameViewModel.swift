@@ -9,24 +9,21 @@ import Foundation
 
 struct GameViewModel {
     
-    var gameSlotsPack = SlotsGameModel(slotsPackImages: [], numberOfColumns: 0)
-    var infoTitle = Box(String())
-    var userMoney = UserMoney()
-    var currentMoney = Box(Int())
-    var maxValue = Box(Int())
-    var currentLine = [Int]()
-    var currentRate = 50
-    var winAmount = Int()
-    var loseAmount = Int()
-    
-    private var player = AudioManager()
-    
+    lazy var gameSlotsPack = SlotsGameModel(slotsPackImages: [], numberOfColumns: 0)
+    lazy var infoTitle = Box(String())
+    lazy var currentMoney = Box(Int())
+    lazy var currentLine = [Int]()
+    lazy var currentRate = 50
+    private var winAmount = Int()
+    private var loseAmount = Int()
+    private let player = AudioManager()
+    let userMoney = UserMoney()
     
     func randomNumber() -> Int {
         return Int.random(in: 9...17)
     }
     
-    func makeBigSlotsArray() -> [String] {
+    mutating func makeBigSlotsArray() -> [String] {
         var bigSlotsArray = [String]()
         for _ in 1...3 {
             bigSlotsArray.append(contentsOf: gameSlotsPack.slotsPackImages)
@@ -45,22 +42,21 @@ struct GameViewModel {
         loseAmount = 0
         switch filter {
         case 1:
-            winAmount = currentRate * 5 // 5 out of 5
+            winAmount = currentRate * 5 // 5 из 5
         case 2:
-            winAmount = currentRate * 2 // 4 out of 5
+            winAmount = currentRate * 2 // 4 из 5
         case 3:
-            winAmount = currentRate // 3 out of 5
+            winAmount = currentRate // 3 из 5
         case 5:
-            loseAmount = currentRate // 1 out of 5
+            loseAmount = currentRate // 1 из 5
         default:
-            print("no win or lose")
+            break
         }
-        
         infoTitleUpdate()
         userMoneyUpdate()
     }
     
-    mutating func infoTitleUpdate() {
+    mutating private func infoTitleUpdate() {
         if winAmount != 0 {
             infoTitle.value = "WIN: +\(winAmount)"
             player.playSound(soundName: K.Sounds.winSound)
@@ -71,7 +67,7 @@ struct GameViewModel {
         }
     }
     
-    mutating func userMoneyUpdate() {
+    mutating private func userMoneyUpdate() {
         var bank = userMoney.getUserMoney()
         if winAmount != 0 {
             bank += winAmount
@@ -80,6 +76,5 @@ struct GameViewModel {
         }
         userMoney.setUserMoney(value: bank)
         currentMoney.value = bank
-        maxValue.value = bank
     }
 }

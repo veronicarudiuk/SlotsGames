@@ -11,8 +11,7 @@
 		583C53E3295C7D5C00511DA3 /* PreloaderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53E2295C7D5C00511DA3 /* PreloaderScreen.swift */; };
 		583C53E9295CA61900511DA3 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53E8295CA61900511DA3 /* UIStackView+Extension.swift */; };
 		583C53EB295CC7EC00511DA3 /* DynamicConstraintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53EA295CC7EC00511DA3 /* DynamicConstraintsManager.swift */; };
-		583C53ED295CCC6900511DA3 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53EC295CCC6900511DA3 /* UIView+Extension.swift */; };
-		583C53EF295CD9E800511DA3 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53EE295CD9E800511DA3 /* AppUtility.swift */; };
+		583C53EF295CD9E800511DA3 /* ScreenLocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53EE295CD9E800511DA3 /* ScreenLocker.swift */; };
 		586A0BC12956E30000D52C24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BC02956E30000D52C24 /* AppDelegate.swift */; };
 		586A0BC32956E30000D52C24 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BC22956E30000D52C24 /* SceneDelegate.swift */; };
 		586A0BC52956E30000D52C24 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BC42956E30000D52C24 /* MainVC.swift */; };
@@ -39,8 +38,7 @@
 		583C53E2295C7D5C00511DA3 /* PreloaderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloaderScreen.swift; sourceTree = "<group>"; };
 		583C53E8295CA61900511DA3 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		583C53EA295CC7EC00511DA3 /* DynamicConstraintsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicConstraintsManager.swift; sourceTree = "<group>"; };
-		583C53EC295CCC6900511DA3 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		583C53EE295CD9E800511DA3 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
+		583C53EE295CD9E800511DA3 /* ScreenLocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLocker.swift; sourceTree = "<group>"; };
 		586A0BBD2956E30000D52C24 /* SlotsGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlotsGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		586A0BC02956E30000D52C24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		586A0BC22956E30000D52C24 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,9 +96,26 @@
 			isa = PBXGroup;
 			children = (
 				583C53E8295CA61900511DA3 /* UIStackView+Extension.swift */,
-				583C53EC295CCC6900511DA3 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		583C53F2295CE93400511DA3 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				58DB58C8295B462C00A87D32 /* UserMoney.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		583C53F3295CE95200511DA3 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				58DB58D4295B765B00A87D32 /* AudioManager.swift */,
+				58DB58D6295C643500A87D32 /* AnimationManager.swift */,
+				583C53EA295CC7EC00511DA3 /* DynamicConstraintsManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		586A0BB42956E30000D52C24 = {
@@ -124,7 +139,7 @@
 			children = (
 				586A0BCE2956E30100D52C24 /* Info.plist */,
 				586A0BDC2956F25400D52C24 /* ApplicationLayer */,
-				586A0BDB2956F18600D52C24 /* SupportingFiles */,
+				586A0BDB2956F18600D52C24 /* Helpers */,
 				583C53E1295C7D0400511DA3 /* Preloaders */,
 				586A0BE12956F36000D52C24 /* Models */,
 				586A0BE02956F35600D52C24 /* ViewModels */,
@@ -144,18 +159,16 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		586A0BDB2956F18600D52C24 /* SupportingFiles */ = {
+		586A0BDB2956F18600D52C24 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				583C53E7295CA5A100511DA3 /* Extensions */,
+				583C53F2295CE93400511DA3 /* UserDefaults */,
+				583C53F3295CE95200511DA3 /* Managers */,
 				586A0BE22956F5B100D52C24 /* Constants.swift */,
-				58DB58C8295B462C00A87D32 /* UserMoney.swift */,
-				58DB58D4295B765B00A87D32 /* AudioManager.swift */,
-				58DB58D6295C643500A87D32 /* AnimationManager.swift */,
-				583C53EA295CC7EC00511DA3 /* DynamicConstraintsManager.swift */,
-				583C53EE295CD9E800511DA3 /* AppUtility.swift */,
+				583C53EE295CD9E800511DA3 /* ScreenLocker.swift */,
 			);
-			path = SupportingFiles;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		586A0BDC2956F25400D52C24 /* ApplicationLayer */ = {
@@ -294,7 +307,6 @@
 				58DB58D7295C643500A87D32 /* AnimationManager.swift in Sources */,
 				586A0BC12956E30000D52C24 /* AppDelegate.swift in Sources */,
 				586A0BDE2956F2E900D52C24 /* GameVC.swift in Sources */,
-				583C53ED295CCC6900511DA3 /* UIView+Extension.swift in Sources */,
 				58DB58C9295B462C00A87D32 /* UserMoney.swift in Sources */,
 				586A0BC32956E30000D52C24 /* SceneDelegate.swift in Sources */,
 				583C53E9295CA61900511DA3 /* UIStackView+Extension.swift in Sources */,
@@ -304,7 +316,7 @@
 				58DB58C1295B154F00A87D32 /* Box.swift in Sources */,
 				58DB58C7295B348900A87D32 /* MainViewModel.swift in Sources */,
 				58DB58D5295B765B00A87D32 /* AudioManager.swift in Sources */,
-				583C53EF295CD9E800511DA3 /* AppUtility.swift in Sources */,
+				583C53EF295CD9E800511DA3 /* ScreenLocker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
