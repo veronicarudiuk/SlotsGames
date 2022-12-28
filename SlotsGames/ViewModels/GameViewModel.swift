@@ -10,8 +10,10 @@ import Foundation
 struct GameViewModel {
     
     var gameSlotsPack = SlotsGameModel(slotsPackImages: [], numberOfColumns: 0)
-    var infoTitle = Box("")
+    var infoTitle = Box(String())
     var userMoney = UserMoney()
+    var currentMoney = Box(Int())
+    var maxValue = Box(Int())
     var currentLine = [Int]()
     var currentRate = 50
     var winAmount = Int()
@@ -19,11 +21,6 @@ struct GameViewModel {
     
     private var player = AudioManager()
     
-    //    mutating func bindCurrentRate() {
-    //        currentRate.bind {
-    //            currentRate = $0
-    //        }
-    //    }
     
     func randomNumber() -> Int {
         return Int.random(in: 9...17)
@@ -74,7 +71,7 @@ struct GameViewModel {
         }
     }
     
-    func userMoneyUpdate() {
+    mutating func userMoneyUpdate() {
         var bank = userMoney.getUserMoney()
         if winAmount != 0 {
             bank += winAmount
@@ -82,5 +79,7 @@ struct GameViewModel {
             bank -= loseAmount
         }
         userMoney.setUserMoney(value: bank)
+        currentMoney.value = bank
+        maxValue.value = bank
     }
 }

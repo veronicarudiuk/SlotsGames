@@ -20,9 +20,10 @@ class GameVC: UIViewController {
     lazy var slotsPicker = UIPickerView()
     
     var viewModel = GameViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.isNavigationBarHidden = true
         slotsPicker.dataSource = self
         slotsPicker.delegate = self
         setupBackgrounds()
@@ -32,7 +33,7 @@ class GameVC: UIViewController {
         setupStepper()
         setupSlotsPicker()
         setupResultLabel()
-        navigationController?.isNavigationBarHidden = true
+        bindViewModel()
     }
     
     //MARK: - setupBackgrounds
@@ -74,7 +75,8 @@ class GameVC: UIViewController {
     }
     
     @objc private func homeButtonAction(_ sender: UIButton) {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
+//        navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK: - setupMoneySection
@@ -94,7 +96,6 @@ class GameVC: UIViewController {
             moneyLabel.heightAnchor.constraint(equalToConstant: 30),
             moneyLabel.widthAnchor.constraint(equalToConstant: 170),
         ])
-        
         moneyLabel.text = String(viewModel.userMoney.getUserMoney())
         moneyLabel.textAlignment = .center
         moneyLabel.font = UIFont(name: K.Fonts.robotoBold, size: 22)
@@ -125,10 +126,8 @@ class GameVC: UIViewController {
             slotsPicker.selectRow((viewModel.randomNumber()), inComponent: i, animated: true)
             viewModel.setCurrentLine(slotsPicker.selectedRow(inComponent: i))
         }
-            viewModel.slotsCheck()
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1, options: .curveEaseOut) {
-            self.spinButton.bounds.size.width += 10
-        }
+        viewModel.slotsCheck()
+        AnimationManager.buttonPressAnimation(sender: sender)
         viewModel.currentLine = []
     }
     
@@ -141,6 +140,7 @@ class GameVC: UIViewController {
             customStepper.topAnchor.constraint(equalTo: spinButton.bottomAnchor, constant: 30),
             customStepper.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
+        customStepper.maxValue = viewModel.userMoney.getUserMoney()
     }
     
     //MARK: - setupSlotsPicker
@@ -153,9 +153,9 @@ class GameVC: UIViewController {
             slotsPicker.widthAnchor.constraint(equalToConstant: 530),
             slotsPicker.heightAnchor.constraint(equalToConstant: 290)
         ])
-
+        
         slotsPicker.isUserInteractionEnabled = false
-
+        
         for i in 0..<slotsPicker.numberOfComponents {
             slotsPicker.selectRow(viewModel.randomNumber(), inComponent: i, animated: true)
         }
@@ -170,14 +170,31 @@ class GameVC: UIViewController {
             resultLabel.centerXAnchor.constraint(equalTo: slotsPicker.centerXAnchor),
             resultLabel.heightAnchor.constraint(equalToConstant: 97)
         ])
-        resultLabel.text = "LET'S SPIN!"
+        resultLabel.text = "LET'S SPIN! ➡️"
         resultLabel.font = UIFont(name: K.Fonts.robotoBold, size: 22)
         resultLabel.textColor = .white
-        
+    }
+    
+    //MARK: - bindViewModel
+    func bindViewModel() {
         viewModel.infoTitle.bind { infoTitle in
             DispatchQueue.main.async {
                 self.resultLabel.text = infoTitle
             }
+        }
+        
+        viewModel.currentMoney.bind { newValue in
+            DispatchQueue.main.async {
+//                self.moneyLabel.text = String(newValue)
+                AnimationManager.textChangeAnimation(sender: self.moneyLabel, newValue: newValue)
+                self.customStepper.maxValue = newValue
+//                AnimationManager.textChangeAnimation(sender: self.moneyLabel)
+            }
+        }
+        
+        customStepper.value.bind { newValue in
+            self.viewModel.currentRate = newValue
+            print(self.viewModel.currentRate)
         }
     }
     

@@ -6,13 +6,14 @@
 //
 
 struct K {
-    
-    
+
     struct BrandColors {
         static let bottomBG = "BottomBG"
         static let redStroke = "RedStroke"
         static let topBG = "TopBG"
         static let lightGrayText = "LightGrayText"
+        static let greenLoader = "GreenLoader"
+        static let lightGrayLoader = "LightGrayLoader"
     }
     
     struct Fonts {

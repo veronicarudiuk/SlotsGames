@@ -26,7 +26,7 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: K.BrandColors.bottomBG)
-        
+        navigationController?.isNavigationBarHidden = true
         setupDarkBackground()
         setupProfileIcon()
         setupMoneySection()
@@ -43,7 +43,7 @@ class MainVC: UIViewController {
         view.addSubview(darkBackground)
         darkBackground.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            darkBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
+            darkBackground.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
             darkBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             darkBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             darkBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -98,13 +98,14 @@ class MainVC: UIViewController {
         view.addSubview(redUnderlinePopular)
         view.addSubview(redUnderlineAll)
         
+        
         let controlStates: Array<UIControl.State> = [.normal, .selected]
         for controlState in controlStates {
             popularButton.setTitle(NSLocalizedString("Popular", comment: ""), for: controlState)
             allGamesButton.setTitle(NSLocalizedString("All Games", comment: ""), for: controlState)
         }
         popularButton.isSelected = true
-        buttonsApperance()
+        controlButtonsApperance()
         
         popularButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
         allGamesButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
@@ -118,25 +119,25 @@ class MainVC: UIViewController {
             allGamesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -62)
         ])
         
-        setupButtonImages(image: redUnderlinePopular, connectedButton: popularButton)
-        setupButtonImages(image: redUnderlineAll, connectedButton: allGamesButton)
+        setupControlButtonImage(image: redUnderlinePopular, connectedButton: popularButton)
+        setupControlButtonImage(image: redUnderlineAll, connectedButton: allGamesButton)
         redUnderlineAll.isHidden = true
     }
     
-    private func buttonsApperance() {
+    private func controlButtonsApperance() {
         for button in [popularButton, allGamesButton] {
+            button.setTitleColor(.white, for: .selected)
+            button.setTitleColor(UIColor(named: K.BrandColors.lightGrayText), for: .normal)
             switch button.isSelected {
             case true:
                 button.titleLabel?.font = UIFont(name: K.Fonts.sfProDisplayBold, size: 20)
-                button.titleLabel?.textColor = .white
             case false:
                 button.titleLabel?.font = UIFont(name: K.Fonts.sfProDisplayRegular, size: 20)
-                button.titleLabel?.textColor = UIColor(named: K.BrandColors.lightGrayText)
             }
         }
     }
     
-    private func setupButtonImages(image: UIImageView, connectedButton: UIButton) {
+    private func setupControlButtonImage(image: UIImageView, connectedButton: UIButton) {
         view.addSubview(image)
         image.image = UIImage(named: "RedUnderline")
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -145,13 +146,14 @@ class MainVC: UIViewController {
     }
     
     @objc private func controlButtonPressed(_ sender: UIButton) {
+        AnimationManager.buttonPressAnimation(sender: sender)
         popularButton.isSelected = !popularButton.isSelected
         redUnderlinePopular.isHidden = !redUnderlinePopular.isHidden
         allGamesButton.isSelected = !allGamesButton.isSelected
         redUnderlineAll.isHidden = !redUnderlineAll.isHidden
         slotsGameTwoButton.isHidden = !slotsGameTwoButton.isHidden
         slotsGameThreeButton.isHidden = !slotsGameThreeButton.isHidden
-        buttonsApperance()
+        controlButtonsApperance()
     }
     
     //MARK: - setupSlotsGameButtons

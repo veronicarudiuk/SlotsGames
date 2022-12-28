@@ -9,7 +9,7 @@ import UIKit
 
 class CustomStepper: UIView {
     lazy var value = Box(Int())
-    lazy var maxValue: Int = 300
+    lazy var maxValue = Int()
     
     private let decreaseButton = UIButton()
     private let increaseButton = UIButton()
@@ -85,7 +85,10 @@ class CustomStepper: UIView {
     }
     
     @objc func keyPressed(_ sender: UIButton) {
+        AnimationManager.buttonPressAnimation(sender: sender)
         switch sender {
+        case increaseButton where value.value == maxValue:
+            break
         case increaseButton:
             value.value += 50
         case decreaseButton where value.value == 0:
