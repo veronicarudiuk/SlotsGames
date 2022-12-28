@@ -14,6 +14,7 @@ class CustomStepper: UIView {
     private let decreaseButton = UIButton()
     private let increaseButton = UIButton()
     private let valueLabel = UILabel()
+    private let dynamicConst = DynamicConstraintsManager()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,8 +68,8 @@ class CustomStepper: UIView {
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor(named: K.BrandColors.redStroke)?.cgColor
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.heightAnchor.constraint(equalToConstant: 33).isActive = true
-        label.widthAnchor.constraint(equalToConstant: 88).isActive = true
+        label.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(33)).isActive = true
+        label.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(88)).isActive = true
     }
     
     private func setupButton(button: UIButton) {
@@ -80,8 +81,8 @@ class CustomStepper: UIView {
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(named: K.BrandColors.redStroke)?.cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 33).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 33).isActive = true
+        button.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(33)).isActive = true
+        button.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(33)).isActive = true
     }
     
     @objc func keyPressed(_ sender: UIButton) {

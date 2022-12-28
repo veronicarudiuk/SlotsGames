@@ -8,7 +8,6 @@
 import UIKit
 
 class MainVC: UIViewController {
-    
     lazy var profileIcon = UIImageView()
     lazy var chestIcon = UIImageView()
     lazy var moneyLabel = UILabel()
@@ -21,17 +20,21 @@ class MainVC: UIViewController {
     lazy var slotsGameTwoButton = UIButton()
     lazy var slotsGameThreeButton = UIButton()
     
-    var viewModel = MainViewModel()
+    lazy var viewModel = MainViewModel()
+    lazy var dynamicConst = DynamicConstraintsManager()
+    
+    lazy var controlButtonsView = UIView()
+    lazy var horizontalStackView = UIStackView(arrangedSubviews: [slotsGameTwoButton, slotsGameThreeButton], axis: .horizontal, spacing: 16)
+    lazy var verticalStackView = UIStackView(arrangedSubviews: [slotsGameOneButton, horizontalStackView], axis: .vertical, spacing: 20)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: K.BrandColors.bottomBG)
         navigationController?.isNavigationBarHidden = true
         setupDarkBackground()
-        setupProfileIcon()
-        setupMoneySection()
+        setupHeaderView()
         setupControlButtons()
-        setupSlotsGameButtons()
+        setupSlotsGameImages()
     }
     
     //MARK: - setupDarkBackground
@@ -50,35 +53,52 @@ class MainVC: UIViewController {
         ])
     }
     
-    //MARK: - setupProfileIcon
-    func setupProfileIcon() {
-        view.addSubview(profileIcon)
-        profileIcon.image = UIImage(named: "ProfileIcon")
+    //MARK: - setupHeaderView
+    func setupHeaderView() {
+        let headerView = UIView()
+        let moneyView = UIView()
+        
+        view.addSubview(headerView)
+        headerView.addSubview(profileIcon)
+        headerView.addSubview(moneyView)
+        moneyView.addSubview(moneyLabel)
+        moneyView.addSubview(chestIcon)
+        
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        moneyView.translatesAutoresizingMaskIntoConstraints = false
         profileIcon.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            profileIcon.bottomAnchor.constraint(equalTo: darkBackground.topAnchor, constant: -32),
-            profileIcon.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 34),
-        ])
-    }
-    
-    //MARK: - setupMoneySection
-    func setupMoneySection() {
-        view.addSubview(moneyLabel)
-        view.addSubview(chestIcon)
         moneyLabel.translatesAutoresizingMaskIntoConstraints = false
         chestIcon.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            moneyLabel.bottomAnchor.constraint(equalTo: darkBackground.topAnchor, constant: -42),
-            moneyLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -34),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.bottomAnchor.constraint(equalTo: darkBackground.topAnchor),
+            
+            chestIcon.topAnchor.constraint(equalTo: moneyView.topAnchor),
+            chestIcon.bottomAnchor.constraint(equalTo: moneyView.bottomAnchor),
+            chestIcon.leadingAnchor.constraint(equalTo: moneyView.leadingAnchor),
+            chestIcon.trailingAnchor.constraint(equalTo: moneyLabel.trailingAnchor, constant: -103),
+            chestIcon.heightAnchor.constraint(equalToConstant: 45),
+            chestIcon.widthAnchor.constraint(equalToConstant: 53.62),
+            
+            moneyLabel.trailingAnchor.constraint(equalTo: moneyView.trailingAnchor),
+            moneyLabel.centerYAnchor.constraint(equalTo: moneyView.centerYAnchor),
             moneyLabel.widthAnchor.constraint(equalToConstant: 124),
             moneyLabel.heightAnchor.constraint(equalToConstant: 26),
             
-            chestIcon.bottomAnchor.constraint(equalTo: darkBackground.topAnchor, constant: -32),
-            chestIcon.trailingAnchor.constraint(equalTo: moneyLabel.trailingAnchor, constant: -103),
-            chestIcon.heightAnchor.constraint(equalToConstant: 45),
-            chestIcon.widthAnchor.constraint(equalToConstant: 53.62)
+            profileIcon.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 34),
+            profileIcon.heightAnchor.constraint(equalToConstant: 45),
+            profileIcon.widthAnchor.constraint(equalToConstant: 45),
+            profileIcon.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            
+            moneyView.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -34),
+            moneyView.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
         ])
         
+        chestIcon.image = UIImage(named: "ChestIcon")
+        profileIcon.image = UIImage(named: "ProfileIcon")
         moneyLabel.text = String(UserMoney().getUserMoney())
         moneyLabel.textAlignment = .center
         moneyLabel.font = UIFont(name: K.Fonts.robotoBold, size: 18)
@@ -86,45 +106,46 @@ class MainVC: UIViewController {
         moneyLabel.backgroundColor = .tintColor
         moneyLabel.layer.masksToBounds = true
         moneyLabel.layer.cornerRadius = 3
-        
-        chestIcon.image = UIImage(named: "ChestIcon")
-        
     }
     
     //MARK: - setupControlButtons and setupButtonImages
     private func setupControlButtons() {
-        view.addSubview(popularButton)
-        view.addSubview(allGamesButton)
-        view.addSubview(redUnderlinePopular)
-        view.addSubview(redUnderlineAll)
-        
-        
-        let controlStates: Array<UIControl.State> = [.normal, .selected]
-        for controlState in controlStates {
-            popularButton.setTitle(NSLocalizedString("Popular", comment: ""), for: controlState)
-            allGamesButton.setTitle(NSLocalizedString("All Games", comment: ""), for: controlState)
-        }
-        popularButton.isSelected = true
-        controlButtonsApperance()
-        
-        popularButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
-        allGamesButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
+        view.addSubview(controlButtonsView)
+        controlButtonsView.addSubview(popularButton)
+        controlButtonsView.addSubview(allGamesButton)
+        controlButtonsView.addSubview(redUnderlinePopular)
+        controlButtonsView.addSubview(redUnderlineAll)
         
         popularButton.translatesAutoresizingMaskIntoConstraints = false
         allGamesButton.translatesAutoresizingMaskIntoConstraints = false
+        controlButtonsView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            popularButton.topAnchor.constraint(equalTo: darkBackground.topAnchor, constant: 29),
-            popularButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 81),
-            allGamesButton.topAnchor.constraint(equalTo: darkBackground.topAnchor, constant: 29),
-            allGamesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -62)
+            controlButtonsView.topAnchor.constraint(equalTo: darkBackground.topAnchor, constant: 29),
+            controlButtonsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            popularButton.leadingAnchor.constraint(equalTo: controlButtonsView.leadingAnchor),
+            popularButton.topAnchor.constraint(equalTo: controlButtonsView.topAnchor),
+            popularButton.trailingAnchor.constraint(equalTo: allGamesButton.leadingAnchor, constant: -115),
+            allGamesButton.topAnchor.constraint(equalTo: controlButtonsView.topAnchor),
+            allGamesButton.trailingAnchor.constraint(equalTo: controlButtonsView.trailingAnchor)
         ])
         
-        setupControlButtonImage(image: redUnderlinePopular, connectedButton: popularButton)
-        setupControlButtonImage(image: redUnderlineAll, connectedButton: allGamesButton)
+        popularButton.isSelected = true
         redUnderlineAll.isHidden = true
+        controlButtonsApperance()
+        
+        setupControlButtonImage(image: redUnderlinePopular, connectedButton: popularButton, buttonsView: controlButtonsView)
+        setupControlButtonImage(image: redUnderlineAll, connectedButton: allGamesButton, buttonsView: controlButtonsView)
+        
+        popularButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
+        allGamesButton.addTarget(target, action: #selector(controlButtonPressed(_:)), for: .touchUpInside)
     }
     
+    //    настройка внешнего вида кнопок
     private func controlButtonsApperance() {
+        popularButton.setTitle("Popular", for: .normal)
+        popularButton.setTitle("Popular", for: .selected)
+        allGamesButton.setTitle("All Games", for: .normal)
+        allGamesButton.setTitle("All Games", for: .selected)
         for button in [popularButton, allGamesButton] {
             button.setTitleColor(.white, for: .selected)
             button.setTitleColor(UIColor(named: K.BrandColors.lightGrayText), for: .normal)
@@ -137,14 +158,17 @@ class MainVC: UIViewController {
         }
     }
     
-    private func setupControlButtonImage(image: UIImageView, connectedButton: UIButton) {
+    //    добавление красной линии под кнопкой
+    private func setupControlButtonImage(image: UIImageView, connectedButton: UIButton, buttonsView: UIView) {
         view.addSubview(image)
         image.image = UIImage(named: "RedUnderline")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.topAnchor.constraint(equalTo: connectedButton.bottomAnchor, constant: 3).isActive = true
         image.centerXAnchor.constraint(equalTo: connectedButton.centerXAnchor).isActive = true
+        image.bottomAnchor.constraint(equalTo: buttonsView.bottomAnchor).isActive = true
     }
     
+    //    изменение состояния экрана при нажатии на кнопку
     @objc private func controlButtonPressed(_ sender: UIButton) {
         AnimationManager.buttonPressAnimation(sender: sender)
         popularButton.isSelected = !popularButton.isSelected
@@ -156,12 +180,34 @@ class MainVC: UIViewController {
         controlButtonsApperance()
     }
     
-    //MARK: - setupSlotsGameButtons
-    private func setupSlotsGameButtons() {
+    //MARK: - setupSlotsGameImages
+    private func setupSlotsGameImages() {
+        
+        
+        
+        view.addSubview(verticalStackView)
+        verticalStackView.addSubview(slotsGameOneButton)
+        verticalStackView.addSubview(horizontalStackView)
+        horizontalStackView.addSubview(slotsGameTwoButton)
+        horizontalStackView.addSubview(slotsGameThreeButton)
+        
         for button in [slotsGameOneButton, slotsGameTwoButton, slotsGameThreeButton] {
-            view.addSubview(button)
             button.translatesAutoresizingMaskIntoConstraints = false
+            button.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
         }
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            horizontalStackView.heightAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(165)),
+            horizontalStackView.widthAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(346)),
+            
+            verticalStackView.topAnchor.constraint(equalTo: controlButtonsView.bottomAnchor, constant: 36),
+            verticalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            verticalStackView.widthAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(346)),
+            verticalStackView.heightAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(350))
+            
+        ])
         
         slotsGameOneButton.setImage(UIImage(named: "GamePic1"), for: .normal)
         slotsGameTwoButton.setImage(UIImage(named: "GamePic2"), for: .normal)
@@ -171,30 +217,8 @@ class MainVC: UIViewController {
         slotsGameTwoButton.tag = 1
         slotsGameThreeButton.tag = 2
         
-        slotsGameOneButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
-        slotsGameTwoButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
-        slotsGameThreeButton.addTarget(target, action: #selector(openGameAction(_:)), for: .touchUpInside)
-        
         slotsGameTwoButton.isHidden = true
         slotsGameThreeButton.isHidden = true
-        
-        NSLayoutConstraint.activate([
-            slotsGameOneButton.topAnchor.constraint(equalTo: popularButton.bottomAnchor, constant: 42),
-            slotsGameOneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            slotsGameOneButton.widthAnchor.constraint(equalToConstant: 346),
-            slotsGameOneButton.heightAnchor.constraint(equalToConstant: 165),
-            
-            slotsGameTwoButton.topAnchor.constraint(equalTo: slotsGameOneButton.bottomAnchor, constant: 20),
-            slotsGameTwoButton.leadingAnchor.constraint(equalTo: slotsGameOneButton.leadingAnchor),
-            slotsGameTwoButton.widthAnchor.constraint(equalToConstant: 165),
-            slotsGameTwoButton.heightAnchor.constraint(equalToConstant: 165),
-            
-            slotsGameThreeButton.topAnchor.constraint(equalTo: slotsGameOneButton.bottomAnchor, constant: 20),
-            slotsGameThreeButton.trailingAnchor.constraint(equalTo: slotsGameOneButton.trailingAnchor),
-            slotsGameThreeButton.widthAnchor.constraint(equalToConstant: 165),
-            slotsGameThreeButton.heightAnchor.constraint(equalToConstant: 165),
-            
-        ])
     }
     
     @objc private func openGameAction(_ sender: UIButton) {
@@ -203,13 +227,14 @@ class MainVC: UIViewController {
         navigationController?.pushViewController(gameVC, animated: true)
     }
     
-    //    фиксирую этот экран в портретном режиме
-    override func viewWillAppear(_ animated: Bool) {
-        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-    }
     
-    //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
-    override func viewWillDisappear(_ animated: Bool) {
-        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
-    }
+        //    фиксирую этот экран в портретном режиме
+        override func viewWillAppear(_ animated: Bool) {
+            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        }
+    
+        //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
+        override func viewWillDisappear(_ animated: Bool) {
+            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+        }
 }

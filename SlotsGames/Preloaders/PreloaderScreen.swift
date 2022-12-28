@@ -37,7 +37,7 @@ class PreloaderScreen: UIViewController {
         view.backgroundColor = UIColor(named: K.BrandColors.bottomBG)
         setConstraints()
         setLabelsAppearance()
-        DispatchQueue.main.asyncAfter(deadline: .now()+4) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) { //4
             let mainVC = MainVC()
             self.navigationController?.pushViewController(mainVC, animated: true)
         }
@@ -79,13 +79,16 @@ class PreloaderScreen: UIViewController {
     }
     
     func setConstraints() {
-        view.addSubview(chestImage)
-        view.addSubview(textView)
-        view.addSubview(progressBar)
+        let mainView = UIView()
+        view.addSubview(mainView)
+        mainView.addSubview(chestImage)
+        mainView.addSubview(textView)
+        mainView.addSubview(progressBar)
+        mainView.translatesAutoresizingMaskIntoConstraints = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chestImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 350),
+            chestImage.topAnchor.constraint(equalTo: mainView.topAnchor),
             chestImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             chestImage.heightAnchor.constraint(equalToConstant: 119),
             chestImage.widthAnchor.constraint(equalToConstant: 142),
@@ -95,6 +98,12 @@ class PreloaderScreen: UIViewController {
             progressBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 4),
             progressBar.widthAnchor.constraint(equalToConstant: 338),
+            progressBar.bottomAnchor.constraint(equalTo: mainView.bottomAnchor),
+            progressBar.leadingAnchor.constraint(equalTo: mainView.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: mainView.trailingAnchor),
+            
+            mainView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
         textView.addSubview(testTitle)

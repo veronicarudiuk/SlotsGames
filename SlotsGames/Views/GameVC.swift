@@ -8,7 +8,6 @@
 import UIKit
 
 class GameVC: UIViewController {
-    
     lazy var mainBackground = UIImageView()
     lazy var spinBackground = UIImageView()
     lazy var homeButton = UIButton()
@@ -19,7 +18,8 @@ class GameVC: UIViewController {
     lazy var resultLabel = UILabel()
     lazy var slotsPicker = UIPickerView()
     
-    var viewModel = GameViewModel()
+    lazy var viewModel = GameViewModel()
+    lazy var dynamicConst = DynamicConstraintsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +27,12 @@ class GameVC: UIViewController {
         slotsPicker.dataSource = self
         slotsPicker.delegate = self
         setupBackgrounds()
-        setupHomeButton()
         setupMoneySection()
         setupSpinButton()
         setupStepper()
         setupSlotsPicker()
         setupResultLabel()
+        setupHomeButton()
         bindViewModel()
     }
     
@@ -55,28 +55,9 @@ class GameVC: UIViewController {
             
             spinBackground.topAnchor.constraint(equalTo: view.topAnchor),
             spinBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            spinBackground.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(238)),
             spinBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-    }
-    
-    //MARK: - setupHomeButton
-    private func setupHomeButton() {
-        homeButton.setImage(UIImage(named: "HomeIcon"), for: .normal)
-        homeButton.addTarget(target, action: #selector(homeButtonAction(_:)), for: .touchUpInside)
-        
-        view.addSubview(homeButton)
-        homeButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            homeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25),
-            homeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            homeButton.heightAnchor.constraint(equalToConstant: 25),
-            homeButton.widthAnchor.constraint(equalToConstant: 26)
-        ])
-    }
-    
-    @objc private func homeButtonAction(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
-//        navigationController?.popToRootViewController(animated: true)
     }
     
     //MARK: - setupMoneySection
@@ -86,15 +67,15 @@ class GameVC: UIViewController {
         chestIcon.translatesAutoresizingMaskIntoConstraints = false
         moneyLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chestIcon.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            chestIcon.leadingAnchor.constraint(equalTo: moneyLabel.leadingAnchor, constant: 28),
-            chestIcon.widthAnchor.constraint(equalToConstant: 115),
-            chestIcon.heightAnchor.constraint(equalToConstant: 97),
+            chestIcon.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamicConst.constraintLandscape(20)),
+            chestIcon.leadingAnchor.constraint(equalTo: moneyLabel.leadingAnchor, constant: dynamicConst.constraintLandscape(28)),
+            chestIcon.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(115)),
+            chestIcon.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(97)),
             
-            moneyLabel.topAnchor.constraint(equalTo: chestIcon.topAnchor, constant: 72),
-            moneyLabel.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: 21),
-            moneyLabel.heightAnchor.constraint(equalToConstant: 30),
-            moneyLabel.widthAnchor.constraint(equalToConstant: 170),
+            moneyLabel.topAnchor.constraint(equalTo: chestIcon.topAnchor, constant: dynamicConst.constraintLandscape(72)),
+            moneyLabel.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: dynamicConst.constraintLandscape(21)),
+            moneyLabel.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(30)),
+            moneyLabel.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(170)),
         ])
         moneyLabel.text = String(viewModel.userMoney.getUserMoney())
         moneyLabel.textAlignment = .center
@@ -112,9 +93,9 @@ class GameVC: UIViewController {
         view.addSubview(spinButton)
         spinButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            spinButton.widthAnchor.constraint(equalToConstant: 150),
-            spinButton.heightAnchor.constraint(equalToConstant: 150),
-            spinButton.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: 30),
+            spinButton.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(150)),
+            spinButton.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(150)),
+            spinButton.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: dynamicConst.constraintLandscape(30)),
             spinButton.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
         spinButton.setImage(UIImage(named: "SpinIcon"), for: .normal)
@@ -136,8 +117,8 @@ class GameVC: UIViewController {
         view.addSubview(customStepper)
         customStepper.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            customStepper.heightAnchor.constraint(equalToConstant: 33),
-            customStepper.topAnchor.constraint(equalTo: spinButton.bottomAnchor, constant: 30),
+            customStepper.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(33)),
+            customStepper.topAnchor.constraint(equalTo: spinButton.bottomAnchor, constant: dynamicConst.constraintLandscape(30)),
             customStepper.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
         customStepper.maxValue = viewModel.userMoney.getUserMoney()
@@ -148,10 +129,10 @@ class GameVC: UIViewController {
         view.addSubview(slotsPicker)
         slotsPicker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            slotsPicker.topAnchor.constraint(equalTo: view.topAnchor, constant: 56),
-            slotsPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 93),
-            slotsPicker.widthAnchor.constraint(equalToConstant: 530),
-            slotsPicker.heightAnchor.constraint(equalToConstant: 290)
+            slotsPicker.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamicConst.constraintLandscape(56)),
+            slotsPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: dynamicConst.constraintLandscape(93)),
+            slotsPicker.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(530)),
+            slotsPicker.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(290))
         ])
         
         slotsPicker.isUserInteractionEnabled = false
@@ -173,6 +154,25 @@ class GameVC: UIViewController {
         resultLabel.text = "LET'S SPIN! ➡️"
         resultLabel.font = UIFont(name: K.Fonts.robotoBold, size: 22)
         resultLabel.textColor = .white
+    }
+    
+    //MARK: - setupHomeButton
+    private func setupHomeButton() {
+        homeButton.setImage(UIImage(named: "HomeIcon"), for: .normal)
+        homeButton.addTarget(target, action: #selector(homeButtonAction(_:)), for: .touchUpInside)
+        
+        view.addSubview(homeButton)
+        homeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            homeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamicConst.constraintLandscape(25)),
+            homeButton.trailingAnchor.constraint(equalTo: slotsPicker.leadingAnchor, constant: -dynamicConst.constraintLandscape(32)),
+            homeButton.heightAnchor.constraint(equalToConstant: 25),
+            homeButton.widthAnchor.constraint(equalToConstant: 26)
+        ])
+    }
+    
+    @objc private func homeButtonAction(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - bindViewModel
@@ -220,16 +220,18 @@ extension GameVC: UIPickerViewDataSource {
         viewModel.gameSlotsPack.slotsPackImages.count * 3
     }
     
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat { 90 }
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat { dynamicConst.constraintLandscape(90)
+    }
     
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { 90 }
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { dynamicConst.constraintLandscape(90)
+    }
 }
 
 //MARK: - UIPickerViewDelegate
 extension GameVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let pickerView = UIView()
-        let pickerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 90, height: 90))
+        let pickerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: dynamicConst.constraintLandscape(90), height: dynamicConst.constraintLandscape(90)))
         pickerImageView.image = UIImage(named: (viewModel.makeBigSlotsArray()[row]))
         pickerView.addSubview(pickerImageView)
         return pickerView
