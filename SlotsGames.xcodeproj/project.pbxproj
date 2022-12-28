@@ -12,6 +12,7 @@
 		583C53E9295CA61900511DA3 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53E8295CA61900511DA3 /* UIStackView+Extension.swift */; };
 		583C53EB295CC7EC00511DA3 /* DynamicConstraintsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53EA295CC7EC00511DA3 /* DynamicConstraintsManager.swift */; };
 		583C53ED295CCC6900511DA3 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53EC295CCC6900511DA3 /* UIView+Extension.swift */; };
+		583C53EF295CD9E800511DA3 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583C53EE295CD9E800511DA3 /* AppUtility.swift */; };
 		586A0BC12956E30000D52C24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BC02956E30000D52C24 /* AppDelegate.swift */; };
 		586A0BC32956E30000D52C24 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BC22956E30000D52C24 /* SceneDelegate.swift */; };
 		586A0BC52956E30000D52C24 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586A0BC42956E30000D52C24 /* MainVC.swift */; };
@@ -39,6 +40,7 @@
 		583C53E8295CA61900511DA3 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		583C53EA295CC7EC00511DA3 /* DynamicConstraintsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicConstraintsManager.swift; sourceTree = "<group>"; };
 		583C53EC295CCC6900511DA3 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		583C53EE295CD9E800511DA3 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		586A0BBD2956E30000D52C24 /* SlotsGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlotsGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		586A0BC02956E30000D52C24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		586A0BC22956E30000D52C24 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				58DB58D4295B765B00A87D32 /* AudioManager.swift */,
 				58DB58D6295C643500A87D32 /* AnimationManager.swift */,
 				583C53EA295CC7EC00511DA3 /* DynamicConstraintsManager.swift */,
+				583C53EE295CD9E800511DA3 /* AppUtility.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				58DB58C1295B154F00A87D32 /* Box.swift in Sources */,
 				58DB58C7295B348900A87D32 /* MainViewModel.swift in Sources */,
 				58DB58D5295B765B00A87D32 /* AudioManager.swift in Sources */,
+				583C53EF295CD9E800511DA3 /* AppUtility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

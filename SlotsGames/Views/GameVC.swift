@@ -19,7 +19,7 @@ class GameVC: UIViewController {
     lazy var slotsPicker = UIPickerView()
     
     lazy var viewModel = GameViewModel()
-    lazy var dynamicConst = DynamicConstraintsManager()
+    lazy var dynamic = DynamicConstraintsManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ class GameVC: UIViewController {
             
             spinBackground.topAnchor.constraint(equalTo: view.topAnchor),
             spinBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            spinBackground.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(238)),
+            spinBackground.widthAnchor.constraint(equalToConstant: dynamic.constraintLandscape(238)),
             spinBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
@@ -67,15 +67,15 @@ class GameVC: UIViewController {
         chestIcon.translatesAutoresizingMaskIntoConstraints = false
         moneyLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chestIcon.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamicConst.constraintLandscape(20)),
-            chestIcon.leadingAnchor.constraint(equalTo: moneyLabel.leadingAnchor, constant: dynamicConst.constraintLandscape(28)),
-            chestIcon.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(115)),
-            chestIcon.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(97)),
+            chestIcon.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamic.constraintLandscape(20)),
+            chestIcon.leadingAnchor.constraint(equalTo: moneyLabel.leadingAnchor, constant: dynamic.constraintLandscape(28)),
+            chestIcon.widthAnchor.constraint(equalToConstant: dynamic.constraintLandscape(115)),
+            chestIcon.heightAnchor.constraint(equalToConstant: dynamic.constraintLandscape(97)),
             
-            moneyLabel.topAnchor.constraint(equalTo: chestIcon.topAnchor, constant: dynamicConst.constraintLandscape(72)),
-            moneyLabel.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: dynamicConst.constraintLandscape(21)),
-            moneyLabel.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(30)),
-            moneyLabel.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(170)),
+            moneyLabel.topAnchor.constraint(equalTo: chestIcon.topAnchor, constant: dynamic.constraintLandscape(72)),
+            moneyLabel.leadingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: dynamic.constraintLandscape(21)),
+            moneyLabel.heightAnchor.constraint(equalToConstant: 30),
+            moneyLabel.widthAnchor.constraint(equalToConstant: dynamic.constraintLandscape(170)),
         ])
         moneyLabel.text = String(viewModel.userMoney.getUserMoney())
         moneyLabel.textAlignment = .center
@@ -93,9 +93,9 @@ class GameVC: UIViewController {
         view.addSubview(spinButton)
         spinButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            spinButton.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(150)),
-            spinButton.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(150)),
-            spinButton.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: dynamicConst.constraintLandscape(30)),
+            spinButton.widthAnchor.constraint(equalToConstant: 150),
+            spinButton.heightAnchor.constraint(equalToConstant: 150),
+            spinButton.topAnchor.constraint(equalTo: moneyLabel.bottomAnchor, constant: dynamic.constraintLandscape(39)),
             spinButton.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
         spinButton.setImage(UIImage(named: "SpinIcon"), for: .normal)
@@ -117,8 +117,9 @@ class GameVC: UIViewController {
         view.addSubview(customStepper)
         customStepper.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            customStepper.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(33)),
-            customStepper.topAnchor.constraint(equalTo: spinButton.bottomAnchor, constant: dynamicConst.constraintLandscape(30)),
+            customStepper.heightAnchor.constraint(equalToConstant: dynamic.constraintLandscape(33)),
+            customStepper.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -dynamic.constraintLandscape(31)),
+            customStepper.topAnchor.constraint(equalTo: spinButton.bottomAnchor, constant: 30),
             customStepper.centerXAnchor.constraint(equalTo: moneyLabel.centerXAnchor)
         ])
         customStepper.maxValue = viewModel.userMoney.getUserMoney()
@@ -129,10 +130,10 @@ class GameVC: UIViewController {
         view.addSubview(slotsPicker)
         slotsPicker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            slotsPicker.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamicConst.constraintLandscape(56)),
-            slotsPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: dynamicConst.constraintLandscape(93)),
-            slotsPicker.widthAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(530)),
-            slotsPicker.heightAnchor.constraint(equalToConstant: dynamicConst.constraintLandscape(290))
+            slotsPicker.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamic.constraintLandscape(56)),
+            slotsPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: dynamic.constraintLandscape(93)),
+            slotsPicker.widthAnchor.constraint(equalToConstant: dynamic.constraintLandscape(530)),
+            slotsPicker.heightAnchor.constraint(equalToConstant: 290)
         ])
         
         slotsPicker.isUserInteractionEnabled = false
@@ -164,8 +165,8 @@ class GameVC: UIViewController {
         view.addSubview(homeButton)
         homeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            homeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamicConst.constraintLandscape(25)),
-            homeButton.trailingAnchor.constraint(equalTo: slotsPicker.leadingAnchor, constant: -dynamicConst.constraintLandscape(32)),
+            homeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: dynamic.constraintLandscape(25)),
+            homeButton.trailingAnchor.constraint(equalTo: spinBackground.leadingAnchor, constant: -dynamic.constraintLandscape(590)),
             homeButton.heightAnchor.constraint(equalToConstant: 25),
             homeButton.widthAnchor.constraint(equalToConstant: 26)
         ])
@@ -200,12 +201,12 @@ class GameVC: UIViewController {
     
     //    фиксирую этот экран в портретном режиме
     override func viewWillAppear(_ animated: Bool) {
-        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeRight)
+        AppUtility.lockOrientation(UIInterfaceOrientationMask.landscape, andRotateTo: UIInterfaceOrientation.landscapeRight)
     }
     
     //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
     override func viewWillDisappear(_ animated: Bool) {
-        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+        AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
     }
     
 }
@@ -220,10 +221,10 @@ extension GameVC: UIPickerViewDataSource {
         viewModel.gameSlotsPack.slotsPackImages.count * 3
     }
     
-    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat { dynamicConst.constraintLandscape(90)
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat { dynamic.constraintLandscape(90)
     }
     
-    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { dynamicConst.constraintLandscape(90)
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { dynamic.constraintLandscape(90)
     }
 }
 
@@ -231,7 +232,7 @@ extension GameVC: UIPickerViewDataSource {
 extension GameVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let pickerView = UIView()
-        let pickerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: dynamicConst.constraintLandscape(90), height: dynamicConst.constraintLandscape(90)))
+        let pickerImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: dynamic.constraintLandscape(90), height: dynamic.constraintLandscape(90)))
         pickerImageView.image = UIImage(named: (viewModel.makeBigSlotsArray()[row]))
         pickerView.addSubview(pickerImageView)
         return pickerView

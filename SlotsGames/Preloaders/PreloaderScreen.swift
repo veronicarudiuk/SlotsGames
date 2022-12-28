@@ -122,12 +122,12 @@ class PreloaderScreen: UIViewController {
     
     //    фиксирую этот экран в портретном режиме
     override func viewWillAppear(_ animated: Bool) {
-        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
     }
 
     //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
     override func viewWillDisappear(_ animated: Bool) {
-        AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+        AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
     }
 }
 

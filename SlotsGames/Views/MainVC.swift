@@ -21,7 +21,7 @@ class MainVC: UIViewController {
     lazy var slotsGameThreeButton = UIButton()
     
     lazy var viewModel = MainViewModel()
-    lazy var dynamicConst = DynamicConstraintsManager()
+    lazy var dynamic = DynamicConstraintsManager()
     
     lazy var controlButtonsView = UIView()
     lazy var horizontalStackView = UIStackView(arrangedSubviews: [slotsGameTwoButton, slotsGameThreeButton], axis: .horizontal, spacing: 16)
@@ -199,13 +199,13 @@ class MainVC: UIViewController {
         horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            horizontalStackView.heightAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(165)),
-            horizontalStackView.widthAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(346)),
+            horizontalStackView.heightAnchor.constraint(equalToConstant: dynamic.constraintPortrait(165)),
+            horizontalStackView.widthAnchor.constraint(equalToConstant: dynamic.constraintPortrait(346)),
             
-            verticalStackView.topAnchor.constraint(equalTo: controlButtonsView.bottomAnchor, constant: 36),
+            verticalStackView.topAnchor.constraint(equalTo: controlButtonsView.bottomAnchor, constant: dynamic.constraintPortrait(36)),
             verticalStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            verticalStackView.widthAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(346)),
-            verticalStackView.heightAnchor.constraint(equalToConstant: dynamicConst.constraintPortrait(350))
+            verticalStackView.widthAnchor.constraint(equalToConstant: dynamic.constraintPortrait(346)),
+            verticalStackView.heightAnchor.constraint(equalToConstant: dynamic.constraintPortrait(350))
             
         ])
         
@@ -230,11 +230,11 @@ class MainVC: UIViewController {
     
         //    фиксирую этот экран в портретном режиме
         override func viewWillAppear(_ animated: Bool) {
-            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+            AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
         }
     
         //    после закрытия этого экрана разрешаю другим экранам менять ориентацию в зависимости от положения девайса
         override func viewWillDisappear(_ animated: Bool) {
-            AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
+            AppUtility.lockOrientation(UIInterfaceOrientationMask.all)
         }
 }
