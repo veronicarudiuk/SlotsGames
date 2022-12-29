@@ -28,6 +28,7 @@ Download all the files from this repo onto a local directory. Compile the progra
 
 * SlotsGames app when starting up.
 
+![preloader](https://user-images.githubusercontent.com/105722412/209950051-1368d6f7-b224-4e92-adc1-7114ada3330d.gif)
 ![Main view](https://user-images.githubusercontent.com/105722412/209950145-fab988d2-0a50-428e-a6e0-0efc2eb4628a.gif)
 
 * On the main page you can choose which game of the three you will play. The games differ from each other by the pictures of the slots.
